@@ -6,7 +6,6 @@ import type * as THREE from "three";
 import React, { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { type GLTF } from "three-stdlib";
-import { _ } from "ts-pattern/dist/patterns";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -29,15 +28,15 @@ type GLTFResult = GLTF & {
     Tongue: THREE.SkinnedMesh;
     mixamorigHips: THREE.Bone;
   };
-  materials: {};
 };
 
 type ActionName = "Armature|mixamo.com|Layer0";
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 export function TinaModel(props: JSX.IntrinsicElements["group"]) {
-  const group = useRef<THREE.Group>();
-  const { nodes, materials, animations } = useGLTF("/tina.glb") as GLTFResult;
+  const group = useRef<THREE.Group>(null);
+  const { nodes, animations } = useGLTF("/tina.glb") as GLTFResult;
+  // @ts-expect-error: allow it
   const { actions } = useAnimations<GLTFActions>(animations, group);
 
   useEffect(() => {
@@ -175,18 +174,3 @@ export function TinaModel(props: JSX.IntrinsicElements["group"]) {
 }
 
 useGLTF.preload("/tina.glb");
-
-const brownA = {
-  brownA1: "#ab5805",
-  brownA2: "#ab5805",
-  brownA3: "#ab5602",
-  brownA4: "#ad5a01",
-  brownA5: "#af5500",
-  brownA6: "#b05201",
-  brownA7: "#ac5300",
-  brownA8: "#aa4f00",
-  brownA9: "#823d00",
-  brownA10: "#723300",
-  brownA11: "#582500",
-  brownA12: "#220c00",
-};

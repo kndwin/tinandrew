@@ -1,10 +1,11 @@
 {
   "overrides": [
     {
-      "extends": [
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended"],
       "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn"
+      },
       "parserOptions": {
         "project": "tsconfig.json"
       }

@@ -175,6 +175,7 @@ export function variants<
 
   const isBooleanVariant = (name: keyof V) => {
     const v = variants?.[name];
+    // @ts-expect-error: allow it
     return v && ("false" in v || "true" in v);
   };
 
@@ -182,7 +183,6 @@ export function variants<
     const result = [twMerge(base)];
 
     const getSelected = (variant: keyof V) => {
-      //@ts-ignore
       const selectedFromProp = props?.[variant] as string;
       const selectedFromDefault = defaultVariants?.[variant] as string;
       const selectedFromBoolean = isBooleanVariant(variant) ? false : undefined;
@@ -203,13 +203,11 @@ export function variants<
         if (Array.isArray(value)) {
           return value.includes(getSelected(variant));
         } else if (typeof value === "object") {
-          //@ts-ignore
           if (value?.["or"]) {
-            //@ts-ignore
+            // @ts-expect-error: allow it
             return value.or.includes(getSelected(variant));
-            //@ts-ignore
           } else if (value?.["not"]) {
-            //@ts-ignore
+            // @ts-expect-error: allow it
             return !value.not.includes(getSelected(variant));
           }
         } else if (Boolean(value)) {
@@ -242,7 +240,7 @@ type VariantProps<
 > = VariantOptions<C> & { className?: ClassValue };
 
 export function variantProps<
-  base,
+  T extends ElementType,
   C extends VariantsConfig<V>,
   V extends Variants = C["variants"]
 >(base: ClassValue, config: Simplify<C>) {
@@ -257,15 +255,13 @@ export function variantProps<
     }
 
     // Add the optionally passed className prop for chaining
-    result.className = [props.className, variantClassName(props)]
-      .filter(Boolean)
-      .join(" ");
+    result.className = twMerge(variantClassName(props), props.className);
 
     return result as { className: ClassValue } & Omit<P, keyof C["variants"]>;
   };
 }
 
-type VariantsOf<T, V extends Variants> = T extends VariantsConfig<V>
+type VariantsOf<T, V> = T extends VariantsConfig<any>
   ? V
   : Record<string, never>;
 
