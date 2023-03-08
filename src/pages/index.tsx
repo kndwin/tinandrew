@@ -9,14 +9,15 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { match } from "ts-pattern";
-import { type HTMLProps, useState, Suspense } from "react";
+import { type HTMLProps, useState, Suspense, useRef } from "react";
 import ReactConfetti from "react-confetti";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Stage } from "@react-three/drei";
 
 import { api } from "~/utils/api";
 import { styled } from "~/utils/variant";
 import { useViewportSize } from "~/hooks";
+import { TinaModel } from "~/modules/models";
 
 const Home: NextPage = () => {
   return (
@@ -30,20 +31,7 @@ const Home: NextPage = () => {
         <h1 className="text-center font-serif text-4xl text-rose-900">
           welcome to tina and andrew!
         </h1>
-        <Canvas
-          className="my-12 flex h-[20em] w-full items-center justify-center rounded-xl bg-rose-100"
-          camera={{ fov: 75, near: 0.1, far: 500, position: [0, 1, 2] }}
-        >
-          <Suspense fallback={<>Loading</>}>
-            <OrbitControls autoRotate />
-            <ambientLight intensity={0.1} />
-            <pointLight position={[10, 10, 10]} intensity={0.2} />
-            <mesh>
-              <boxGeometry />
-              <meshStandardMaterial color={crimsonA.crimsonA3} />
-            </mesh>
-          </Suspense>
-        </Canvas>
+        <Viewer />
         <div className="mt-20 flex w-full items-center justify-center">
           <FormRSVP />
         </div>
@@ -52,19 +40,28 @@ const Home: NextPage = () => {
   );
 };
 
-const crimsonA = {
-  crimsonA1: "#ff0558",
-  crimsonA2: "#ff0582",
-  crimsonA3: "#ef0170",
-  crimsonA4: "#e2006d",
-  crimsonA5: "#d80061",
-  crimsonA6: "#ce015d",
-  crimsonA7: "#c70053",
-  crimsonA8: "#c4004f",
-  crimsonA9: "#e2005a",
-  crimsonA10: "#d90057",
-  crimsonA11: "#cd0052",
-  crimsonA12: "#330011",
+const Viewer = () => {
+  const tinaModelRef = useRef(null);
+  return (
+    <Canvas
+      className="my-12 flex w-full items-center justify-center rounded-xl border border-slate-900"
+      style={{ height: "30em" }}
+      camera={{ position: [0, 1, 3] }}
+    >
+      <Suspense fallback={null}>
+        <spotLight
+          position={[10, 10, 10]}
+          angle={0.3}
+          penumbra={1}
+          shadow-mapSize={[512, 512]}
+          castShadow
+          intensity={1}
+        />
+        <TinaModel ref={tinaModelRef} position={[0, -1, 0]} />
+      </Suspense>
+      <OrbitControls ref={tinaModelRef} />
+    </Canvas>
+  );
 };
 
 export default Home;
