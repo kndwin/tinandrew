@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500&display=swap");
+
+@font-face {
+  font-family: "Gistesy";
+  src: url("../../public/Gistesy.ttf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -78,4 +85,13 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+html,
+body {
+  @apply h-full;
+}
+
+#__next {
+  @apply flex min-h-full flex-col;
 }

@@ -1,5 +1,3 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -14,6 +12,9 @@ module.exports = {
     },
     extend: {
       colors: {
+        brown: "#594B44",
+        lightbrown: "#766156",
+        text: "#1C1C1C",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -66,6 +67,11 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        gistesy: ["Gistesy", "cursive"],
+        cardo: ["Cardo", "serif"],
+        karla: ["Karla", "sans-serif"],
       },
     },
   },

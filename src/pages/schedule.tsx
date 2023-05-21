@@ -12,14 +12,7 @@ import type {
 
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
-import {
-  Dialog,
-  DialogTitle,
-  DialogHeader,
-  DialogDescription,
-  DialogContent,
-  DialogTrigger,
-} from "~/ui";
+import { Dialog, DialogContent, DialogTrigger } from "~/ui";
 import { FormRSVP } from "~/modules/rsvp";
 
 const Schedule: NextPage = (
@@ -40,21 +33,34 @@ const Schedule: NextPage = (
   );
 
   return (
-    <div className="container mx-auto h-full max-w-3xl">
-      <div className="my-16 flex flex-col items-center justify-center">
-        <p>Sat 4th Nov, 2023</p>
-        <p>👋 {personDetails.data?.person}</p>
-        <p>Andrew + Tina </p>
-        {personDetails.data?.rsvped ? (
-          <div>
-            <p>Thank you for RSVPing!</p>
-          </div>
-        ) : (
-          <div className="mt-4 text-center">
-            <DialogRSVP />
-            <p>Please RSVP by August 4th</p>
-          </div>
-        )}
+    <div className="flex h-full flex-col">
+      <div className="w-full">
+        <div className="container mx-auto mt-20 mb-12 flex max-w-3xl flex-col items-center justify-center ">
+          <p className="max-w-[12ch] text-center font-gistesy text-5xl text-brown md:max-w-lg md:text-7xl">
+            We're getting married!
+          </p>
+          <p className="color-text font-cardo text-lg lowercase md:text-xl">
+            and you're invited to celebrate with us!
+          </p>
+
+          {personDetails.data?.rsvped ? (
+            <div>
+              <p>Thank you for RSVPing!</p>
+            </div>
+          ) : (
+            <div className="mt-16 text-center">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="bg-white px-4 py-2">RSVP Here</button>
+                </DialogTrigger>
+                <DialogContent>
+                  <FormRSVP />
+                </DialogContent>
+              </Dialog>
+              <p className="mt-3">Please RSVP by August 4th</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="my-16 flex flex-col items-center justify-center">
@@ -92,17 +98,6 @@ const Schedule: NextPage = (
         )}
       </div>
     </div>
-  );
-};
-
-const DialogRSVP = () => {
-  return (
-    <Dialog>
-      <DialogTrigger>Please RSVP</DialogTrigger>
-      <DialogContent>
-        <FormRSVP />
-      </DialogContent>
-    </Dialog>
   );
 };
 

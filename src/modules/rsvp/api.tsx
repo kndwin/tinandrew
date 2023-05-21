@@ -25,38 +25,47 @@ export const rsvpRouter = createTRPCRouter({
         filter: {
           property: "Person",
           title: {
-            contains: `${input.firstName} ${input.lastName}`,
+            contains: input.person,
           },
         },
       });
-      const updatedRow = await updateRow(input);
-      const sentEmail = await sendEmail(input);
+      // @ts-expect-error: Notion API is not typed
+      const pageId = doesUserExist.results[0].id;
+      const updatedRow = await updateRow(pageId, input);
+      // const sentEmail = await sendEmail(input);
       return {
         updatedRow,
-        sentEmail,
+        // sentEmail,
       };
     }),
 });
 
 type CreateRVSPProps = z.infer<typeof createRSVPSchema>;
 
-const updateRow = async (input: CreateRVSPProps) => {
+const updateRow = async (id: string, input: CreateRVSPProps) => {
   const updatedRow = await client.pages.update({
+    page_id: id,
     properties: {
-      Person: {
-        title: [{ text: { content: input.fullName } }],
+      "Plus One": {
+        checkbox: input.plusOne === "Yes",
       },
-      Email: {
-        email: input.email,
+      RSVPed: {
+        checkbox: true,
       },
       Attending: {
-        select: { name: input.attending },
+        select: {
+          name: input.attending,
+        },
+      },
+      QnA: {
+        rich_text: [{ text: { content: input.qna } }],
       },
       Dietary: {
-        rich_text: [{ text: { content: input.allergies } }],
+        rich_text: [{ text: { content: input.qna } }],
       },
     },
   });
+
   return updatedRow;
 };
 

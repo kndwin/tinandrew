@@ -1,4 +1,3 @@
-import { P } from "ts-pattern";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -29,7 +28,6 @@ export const regoRouter = createTRPCRouter({
           },
         },
       });
-      console.dir(person, { depth: null });
       // @ts-expect-error: Notion API is not typed
       return transformNotionPerson(person.results[0]?.properties);
     }),

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
+    "@next/font": "^13.4.3",
     "@notionhq/client": "^2.2.3",
     "@radix-ui/react-dialog": "^1.0.3",
     "@react-email/button": "0.0.6",
@@ -33,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-email": "1.7.13",
     "react-hook-form": "^7.43.1",
+    "resend": "^0.14.0",
     "server": "link:@trpc/react-query/server",
     "superjson": "1.9.1",
     "tailwind-merge": "^1.9.1",
