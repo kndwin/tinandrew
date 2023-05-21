@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "./trpc";
-import { notionRouter } from "./routers/notion";
+import { rsvpRouter } from "~/modules/rsvp/api";
+import { regoRouter } from "~/modules/rego/api";
 
 /**
  * This is the primary router for your server.
@@ -7,7 +8,8 @@ import { notionRouter } from "./routers/notion";
  * All routers added in /api/routers should be manually added here
  */
 export const appRouter = createTRPCRouter({
-  notion: notionRouter,
+  rsvp: rsvpRouter,
+  rego: regoRouter,
 });
 
 // export type definition of API
