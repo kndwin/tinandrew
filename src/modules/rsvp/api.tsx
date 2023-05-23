@@ -32,10 +32,8 @@ export const rsvpRouter = createTRPCRouter({
       // @ts-expect-error: Notion API is not typed
       const pageId = doesUserExist.results[0].id;
       const updatedRow = await updateRow(pageId, input);
-      // const sentEmail = await sendEmail(input);
       return {
         updatedRow,
-        // sentEmail,
       };
     }),
 });
@@ -67,24 +65,4 @@ const updateRow = async (id: string, input: CreateRVSPProps) => {
   });
 
   return updatedRow;
-};
-
-const sendEmail = async (input: CreateRVSPProps) => {
-  const options = {
-    from: "tnkevino@gmail.com",
-    to: input.email,
-    subject: "hello world",
-    html: render(<Email input={input} />),
-  };
-
-  const sentEmail = await sendgrid.send(options);
-  return sentEmail;
-};
-
-const Email = ({ input }: { input: CreateRVSPProps }) => {
-  return (
-    <Html>
-      <Button>{input.email}</Button>
-    </Html>
-  );
 };

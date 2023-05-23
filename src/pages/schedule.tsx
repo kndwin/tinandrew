@@ -34,13 +34,14 @@ const Schedule: NextPage = (
 
   return (
     <div className="flex h-full flex-col">
-      <div className="w-full">
-        <div className="container mx-auto mt-20 mb-12 flex max-w-3xl flex-col items-center justify-center ">
+      <div className="relative w-full">
+        <div className="container mx-auto flex min-h-[50em] max-w-3xl flex-col items-center justify-center">
+          <img src="/hero-kittens.png" />
           <p className="max-w-[12ch] text-center font-gistesy text-5xl text-brown md:max-w-lg md:text-7xl">
-            We're getting married!
+            {`We're getting married!`}
           </p>
-          <p className="color-text font-cardo text-lg lowercase md:text-xl">
-            and you're invited to celebrate with us!
+          <p className="color-text font-cardo text-lg font-light lowercase md:text-xl">
+            {`and you're invited to celebrate with us!`}
           </p>
 
           {personDetails.data?.rsvped ? (
@@ -51,34 +52,53 @@ const Schedule: NextPage = (
             <div className="mt-16 text-center">
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="bg-white px-4 py-2">RSVP Here</button>
+                  <button className="rounded-sm border-2 border-brown bg-white px-4 py-2 text-brown">
+                    RSVP Here
+                  </button>
                 </DialogTrigger>
                 <DialogContent>
                   <FormRSVP />
                 </DialogContent>
               </Dialog>
-              <p className="mt-3">Please RSVP by August 4th</p>
+              <p className="mt-3 text-sm text-lightbrown">
+                Please RSVP by August 4th
+              </p>
             </div>
           )}
         </div>
+        <img
+          className="absolute left-0 top-0 -z-10"
+          src="/hero-polaroids-a.png"
+        />
+        <img
+          className="absolute right-0 top-0 -z-10"
+          src="/hero-polaroids-b.png"
+        />
       </div>
 
       <div className="my-16 flex flex-col items-center justify-center">
-        <p>Schedule</p>
-        <p>Saturday November 4th, 2023</p>
+        <p className="font-gistesy text-5xl text-brown ">Schedule</p>
+        <img src="/timeline-flowers.png" className="w-24" />
+        <p className="mt-8 font-cardo text-3xl text-lightbrown">
+          Saturday November 4th, 2023
+        </p>
         <ButtonAddToCalendar />
       </div>
 
-      <div className="my-8 flex flex-col items-center justify-center gap-2 text-center">
-        <div className="max-w-xl">
-          <p>Ceremony</p>
-          <p>12:45pm - 2:30pm</p>
-          <p>
-            Please arrive and be seated by 12:45pm for a 1:00pm start. Children
-            are welcome.
-          </p>
+      <div className="my-8 flex flex-col items-center justify-center gap-2">
+        <div className="grid max-w-[40ch] grid-cols-2">
+          <div className="text-right">
+            <p className="font-cardo text-xl">Ceremony</p>
+            <p className="font-karla">12:45pm - 2:30pm</p>
+            <p className="font-karla text-sm">
+              Please arrive and be seated by 12:45pm for a 1:00pm start.
+              Children are welcome.
+            </p>
+          </div>
+          <img src="/timeline-ring.png" />
         </div>
         <div className="max-w-xl">
+          <img src="/timeline-cake.png" className="w-24" />
           <p>Social Hover</p>
           <p>2:30pm - 4:00pm</p>
           <p>
@@ -88,6 +108,7 @@ const Schedule: NextPage = (
         </div>
         {personDetails.data?.access === "Reception" && (
           <div className="max-w-xl">
+            <img src="/timeline-steak.png" className="w-24" />
             <p>Reception</p>
             <p>7:00pm - 12:00am</p>
             <p>
@@ -104,6 +125,7 @@ const Schedule: NextPage = (
 const ButtonAddToCalendar = () => {
   return (
     <button
+      className="mt-2 rounded-full border border-lightbrown bg-white px-3 py-1 text-xs text-lightbrown"
       onClick={() => {
         const event = {
           title: "Wedding",
@@ -132,6 +154,7 @@ export async function getServerSideProps(
 ) {
   const helpers = createServerSideHelpers({
     router: appRouter,
+    // @ts-expect-error: TODO
     ctx: createInnerTRPCContext({ req: context.req, res: context.res }),
     transformer: superjson,
   });

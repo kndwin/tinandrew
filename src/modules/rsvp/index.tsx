@@ -7,7 +7,7 @@ import ReactConfetti from "react-confetti";
 
 import { api } from "~/utils/api";
 import { useViewportSize } from "~/hooks";
-import { FormTextField, StyledLabel, Card } from "~/ui";
+import { StyledLabel, Card } from "~/ui";
 import { useRouter } from "next/router";
 
 const rsvpFormSchema = z.object({
@@ -40,7 +40,7 @@ export const FormRSVP = () => {
 
   const onSubmit = handleSubmit((data) => {
     createRSVPMutation.mutate(
-      { ...data, person: router.query?.person },
+      { ...data, person: router.query?.person as string },
       {
         onSuccess: () => {
           setConfetti(true);
@@ -62,7 +62,7 @@ export const FormRSVP = () => {
               defaultValue={"Yes"}
               className="w-fit appearance-none rounded border border-gray-300 px-2 py-1"
             >
-              <option value="Yes">Yes, I'll be there</option>
+              <option value="Yes">{`Yes, I'll be there`}</option>
               <option value="No">No</option>
             </select>
             {errors.attending && (
@@ -76,7 +76,7 @@ export const FormRSVP = () => {
               defaultValue={"Yes"}
               className="w-fit appearance-none rounded border border-gray-300 px-2 py-1"
             >
-              <option value="Yes">I'll be bringing one</option>
+              <option value="Yes">{`I'll be bringing one`}</option>
               <option value="No">No</option>
             </select>
             {errors.attending && (
