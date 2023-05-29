@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         brown: "#594B44",
         lightbrown: "#766156",
+        muted: "#8e8e8e",
         text: "#1C1C1C",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -31,10 +32,6 @@ module.exports = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
