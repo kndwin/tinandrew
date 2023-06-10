@@ -53,8 +53,8 @@ const Schedule: NextPage = (
       <Hero rsvped={personDetails.data?.rsvped} />
       <SectionTitle title="Schedule" />
       <AddToCalendar />
-      <Timeline version={access} />
-      <Location />
+      <Timeline access={access} />
+      <Location access={access} />
       <QuestionsAndAnswers />
       <BridalParty />
       <AboutUs />

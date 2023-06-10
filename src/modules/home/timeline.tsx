@@ -86,16 +86,12 @@ const MobileItem = (props: Timeline) => (
   </div>
 );
 
-export const Timeline = ({
-  version,
-}: {
-  version: "reception" | "ceremony";
-}) => {
+export const Timeline = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
     <div className="my-8 flex flex-col items-center justify-center gap-2">
       <div className="hidden max-w-[70ch] grid-cols-[1fr_2em_1fr] gap-y-4 gap-x-2 sm:grid">
         <div className="col-start-2 col-end-2 row-span-3 row-start-1 my-auto flex h-4/5 flex-col">
-          {version === "ceremony" ? (
+          {access === "ceremony" ? (
             <>
               <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
               <div className="mx-auto h-4/5 w-[3px] bg-brown" />
@@ -113,14 +109,14 @@ export const Timeline = ({
         </div>
         <GridItem {...timeline["ceremony"]} align="right" />
         <GridItem {...timeline["socialHover"]} align="left" />
-        {version === "reception" && (
+        {access === "reception" && (
           <GridItem {...timeline["reception"]} align="right" />
         )}
       </div>
       <div className="flex flex-col gap-4 sm:hidden">
         <MobileItem {...timeline["ceremony"]} />
         <MobileItem {...timeline["socialHover"]} />
-        {version === "reception" && <MobileItem {...timeline["reception"]} />}
+        {access === "reception" && <MobileItem {...timeline["reception"]} />}
       </div>
     </div>
   );

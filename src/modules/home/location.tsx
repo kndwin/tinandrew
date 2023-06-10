@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { SectionTitle } from "./section-title";
 
-export const Location = () => {
+export const Location = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
     <section className="relative my-8 flex w-full flex-col items-center">
       <SectionTitle title="Location" />
@@ -24,20 +24,22 @@ export const Location = () => {
             </p>
           </div>
         </div>
-        <div className="flex w-full flex-col gap-6 px-4 sm:flex-row sm:justify-center">
-          <div className="h-[12em] w-full bg-gray-200 sm:w-2/5" />
-          <div className="text-left sm:w-3/5">
-            <p className="font-cardo text-3xl font-light text-brown">
-              {location.reception.title}
-            </p>
-            <p className="font-karla text-lightbrown">
-              {location.reception.address}
-            </p>
-            <p className="font-karla text-sm">
-              {location.reception.description}
-            </p>
+        {access == "reception" && (
+          <div className="flex w-full flex-col gap-6 px-4 sm:flex-row sm:justify-center">
+            <div className="h-[12em] w-full bg-gray-200 sm:w-2/5" />
+            <div className="text-left sm:w-3/5">
+              <p className="font-cardo text-3xl font-light text-brown">
+                {location.reception.title}
+              </p>
+              <p className="font-karla text-lightbrown">
+                {location.reception.address}
+              </p>
+              <p className="font-karla text-sm">
+                {location.reception.description}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Image
