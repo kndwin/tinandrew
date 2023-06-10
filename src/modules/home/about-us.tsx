@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SectionTitle } from "./section-title";
 import { Text } from "~/ui";
 
-const questionsAndAnswers = {
+const aboutUs = {
   rsvp: {
     title: "RSVP",
     description: "Please RSVP by 30th September 2021",
@@ -24,52 +24,37 @@ const questionsAndAnswers = {
   },
 };
 
-export const QuestionsAndAnswers = () => {
+export const AboutUs = () => {
   return (
-    <section className="relative my-8 flex w-full flex-col items-center">
-      <SectionTitle title="Q + A" />
+    <section className="relative mt-8 mb-20 flex w-full flex-col items-center">
+      <SectionTitle title="About us" />
 
       <div className="flex max-w-[40ch] flex-col items-center gap-7 px-4 text-center">
         <div className="flex flex-col items-center gap-3">
           <Text size="subheading" className="text-brown">
-            {questionsAndAnswers.rsvp.title}
+            {aboutUs.rsvp.title}
           </Text>
-          <Text>{questionsAndAnswers.rsvp.description}</Text>
+          <Text>{aboutUs.rsvp.description}</Text>
         </div>
         <div className="flex flex-col items-center gap-3">
           <Text size="subheading" className="text-brown">
-            {questionsAndAnswers.children.title}
+            {aboutUs.children.title}
           </Text>
-          <Text>{questionsAndAnswers.children.description}</Text>
+          <Text>{aboutUs.children.description}</Text>
         </div>
         <div className="flex flex-col items-center gap-3">
           <Text size="subheading" className="text-brown">
-            {questionsAndAnswers.gifts.title}
+            {aboutUs.gifts.title}
           </Text>
-          <Text>{questionsAndAnswers.gifts.description}</Text>
+          <Text>{aboutUs.gifts.description}</Text>
         </div>
         <div className="flex flex-col items-center gap-3">
           <Text size="subheading" className="text-brown">
-            {questionsAndAnswers.contact.title}
+            {aboutUs.contact.title}
           </Text>
-          <Text>{questionsAndAnswers.contact.description}</Text>
+          <Text>{aboutUs.contact.description}</Text>
         </div>
       </div>
-
-      <Image
-        className="absolute right-0 top-0 -z-10 hidden sm:block"
-        src="/hero-polaroids-b.png"
-        height={500}
-        width={250}
-        alt="Image Polaroid"
-      />
-      <Image
-        className="absolute -left-8 top-full -z-10 hidden -translate-y-full -rotate-12 sm:block"
-        src="/hero-polaroids-a.png"
-        height={600}
-        width={300}
-        alt="Image Polaroid"
-      />
     </section>
   );
 };

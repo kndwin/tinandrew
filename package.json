@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "^13.4.3",
     "@notionhq/client": "^2.2.3",
+    "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.3",
     "@react-email/button": "0.0.6",
     "@react-email/html": "0.0.4",

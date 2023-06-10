@@ -35,13 +35,14 @@ export const Hero = ({ rsvped }: { rsvped: boolean }) => {
             </p>
           </div>
         )}
-        <Image
-          className="-z-10 block h-1/2 sm:hidden"
-          src="/hero-polaroids-c.png"
-          height={650}
-          width={478}
-          alt="Image Polaroid"
-        />
+        <div className="relative -z-10 block h-[30em] w-[20em] sm:hidden">
+          <Image
+            src="/hero-polaroids-c.svg"
+            layout="fill"
+            objectFit="cover"
+            alt="Image Polaroid"
+          />
+        </div>
       </div>
       <Image
         className="absolute left-0 top-1/2 -z-10 hidden -translate-y-1/2 sm:block"

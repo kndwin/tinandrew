@@ -19,6 +19,8 @@ import { SectionTitle } from "~/modules/home/section-title";
 import { Timeline } from "~/modules/home/timeline";
 import { Location } from "~/modules/home/location";
 import { QuestionsAndAnswers } from "~/modules/home/question-and-answers";
+import { BridalParty } from "~/modules/home/bridal-party";
+import { AboutUs } from "~/modules/home/about-us";
 
 const usePersonDetails = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -43,19 +45,19 @@ const Schedule: NextPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const personDetails = usePersonDetails(props);
+  const access =
+    personDetails?.data?.access === "Reception" ? "reception" : "ceremony";
 
   return (
     <div className="flex h-full flex-col">
       <Hero rsvped={personDetails.data?.rsvped} />
       <SectionTitle title="Schedule" />
       <AddToCalendar />
-      <Timeline
-        version={
-          personDetails?.data?.access === "Reception" ? "reception" : "ceremony"
-        }
-      />
+      <Timeline version={access} />
       <Location />
       <QuestionsAndAnswers />
+      <BridalParty />
+      <AboutUs />
     </div>
   );
 };

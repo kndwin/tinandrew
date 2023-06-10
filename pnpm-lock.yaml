@@ -4,6 +4,7 @@ specifiers:
   '@hookform/resolvers': ^2.9.11
   '@next/font': ^13.4.3
   '@notionhq/client': ^2.2.3
+  '@radix-ui/react-aspect-ratio': ^1.0.3
   '@radix-ui/react-dialog': ^1.0.3
   '@react-email/button': 0.0.6
   '@react-email/html': 0.0.4
@@ -55,6 +56,7 @@ dependencies:
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.1
   '@next/font': 13.4.3
   '@notionhq/client': 2.2.3
+  '@radix-ui/react-aspect-ratio': 1.0.3_ffd5foczrxyy7gyjqbwgwcqlbq
   '@radix-ui/react-dialog': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
   '@react-email/button': 0.0.6
   '@react-email/html': 0.0.4
@@ -584,12 +586,47 @@ packages:
       '@babel/runtime': 7.20.13
     dev: false
 
+  /@radix-ui/react-aspect-ratio/1.0.3_ffd5foczrxyy7gyjqbwgwcqlbq:
+    resolution: {integrity: sha512-fXR5kbMan9oQqMuacfzlGG/SQMcmMlZ4wrvpckv8SgUulD0MMpspxJrxg/Gp/ISV3JfV1AeSWTYK9GvxA4ySwA==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@radix-ui/react-primitive': 1.0.3_ffd5foczrxyy7gyjqbwgwcqlbq
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.10
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@radix-ui/react-compose-refs/1.0.0_react@18.2.0:
     resolution: {integrity: sha512-0KaSv6sx787/hK3eF53iOkiSLwAGlFMx5lotrqD2pTjB18KbybKoEIgkNZTKC60YECDQTKGTRcDBILwZVqVKvA==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
       '@babel/runtime': 7.20.13
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-compose-refs/1.0.1_pmekkgnqduwlme35zpnqhenc34:
+    resolution: {integrity: sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@types/react': 18.0.28
       react: 18.2.0
     dev: false
 
@@ -715,6 +752,27 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
+  /@radix-ui/react-primitive/1.0.3_ffd5foczrxyy7gyjqbwgwcqlbq:
+    resolution: {integrity: sha512-yi58uVyoAcK/Nq1inRY56ZSjKypBNKTa/1mcL8qdl6oJeEaDbOldlzrGn7P6Q3Id5d+SYNGc5AJgc4vGhjs5+g==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@radix-ui/react-slot': 1.0.2_pmekkgnqduwlme35zpnqhenc34
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.10
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@radix-ui/react-slot/1.0.1_react@18.2.0:
     resolution: {integrity: sha512-avutXAFL1ehGvAXtPquu0YK5oz6ctS474iM3vNGQIkswrVhdrS52e3uoMQBzZhNRAIE0jBnUyXWNmSjGHhCFcw==}
     peerDependencies:
@@ -722,6 +780,21 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.13
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-slot/1.0.2_pmekkgnqduwlme35zpnqhenc34:
+    resolution: {integrity: sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@radix-ui/react-compose-refs': 1.0.1_pmekkgnqduwlme35zpnqhenc34
+      '@types/react': 18.0.28
       react: 18.2.0
     dev: false
 
@@ -1077,7 +1150,6 @@ packages:
     resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
     dependencies:
       '@types/react': 18.0.28
-    dev: true
 
   /@types/react-reconciler/0.26.7:
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
