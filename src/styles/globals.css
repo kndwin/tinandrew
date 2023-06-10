@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Gistesy";
-  src: url("../../public/Gistesy.ttf");
+  src: url("/Gistesy.ttf");
 }
 
 @tailwind base;
