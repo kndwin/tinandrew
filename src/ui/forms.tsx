@@ -1,25 +1,44 @@
-import { type HTMLProps } from "react";
+import { type HTMLProps, useState } from "react";
 import { type FieldError, useFormContext } from "react-hook-form";
 import { styled } from "~/utils/variant";
+import { Text } from "./text";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-type FormFieldProps = {
+export type FormFieldProps = {
   label: string;
   name: string;
   error?: FieldError;
   inputProps?: HTMLProps<HTMLInputElement>;
 };
 
-export const FormTextField = ({
-  label,
-  name,
-  error,
-  inputProps,
-}: FormFieldProps) => {
+export const FormTextField = (props: FormFieldProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledInput id={name} {...inputProps} />
-      {error && <Card type="error" message={error.message} />}
+    <div className="flex w-full flex-col gap-2">
+      <StyledLabel htmlFor={props.name}>{props.label}</StyledLabel>
+      <StyledInput id={props.name} {...props.inputProps} />
+      {props?.error && <Card type="error" message={props?.error?.message} />}
+    </div>
+  );
+};
+
+export const FormPasswordField = (props: FormFieldProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <StyledLabel htmlFor={props.name}>{props.label}</StyledLabel>
+      <div className="flex w-full gap-2">
+        <StyledInput
+          className="flex-1"
+          type={showPassword ? "text" : "password"}
+          id={props.name}
+          {...props.inputProps}
+        />
+        <button type="button" onClick={handleShowPassword}>
+          {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+        </button>
+      </div>
+      {props?.error && <Card type="error" message={props?.error?.message} />}
     </div>
   );
 };
@@ -60,7 +79,7 @@ const StyledCardText = styled("p", "text-sm", {
   },
 });
 
-export const StyledLabel = styled("label", "text-sm font-bold");
+export const StyledLabel = styled(Text, "text-brown");
 
 export const StyledInput = ({
   id,
@@ -71,7 +90,7 @@ export const StyledInput = ({
     <input
       {...register(id)}
       {...props}
-      className="rounded border border-gray-300 py-1 px-2"
+      className="w-full rounded border border-brown py-1 px-2"
     />
   );
 };

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { ID, client } from "~/server/notion";
@@ -8,8 +9,20 @@ export const regoRouter = createTRPCRouter({
   validateRego: publicProcedure
     .input(validateRegoSchema)
     .mutation(async ({ input }) => {
+      if (input.password !== process.env.REGO_PASSWORD) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Invalid password",
+        });
+      }
       const isPersonValid = await validatePerson(input);
-      console.log({ isPersonValid, input });
+      if (isPersonValid.valid === "invalid") {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Invalid person",
+        });
+      }
+
       return { ...isPersonValid };
     }),
   getPerson: publicProcedure
@@ -63,7 +76,7 @@ const validatePerson = async (input: ValidateRegoProps) => {
 
   const isUserInvalid = doesUserExist?.results?.length === 0;
 
-  if (!Boolean(properties?.["Email"]?.email)) {
+  if (!Boolean(properties?.["Email"]?.email) && !isUserInvalid) {
     await client.pages.update({
       page_id: doesUserExist.results[0]?.id as string,
       properties: {

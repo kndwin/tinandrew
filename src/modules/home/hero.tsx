@@ -10,15 +10,11 @@ export const Hero = ({ rsvped }: { rsvped: boolean }) => {
         <p className="max-w-[12ch] text-center font-gistesy text-5xl text-brown md:max-w-lg md:text-7xl">
           {`We're getting married!`}
         </p>
-        <p className="color-text text-center font-cardo text-lg font-light lowercase md:text-xl">
+        <p className="color-text mt-4 text-center font-cardo text-[32px] font-light lowercase md:text-xl">
           {`and you're invited to celebrate with us!`}
         </p>
 
-        {rsvped ? (
-          <div>
-            <p>Thank you for RSVPing!</p>
-          </div>
-        ) : (
+        {!rsvped && (
           <div className="mt-16 text-center">
             <Dialog>
               <DialogTrigger asChild>

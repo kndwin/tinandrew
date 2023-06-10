@@ -32,7 +32,7 @@ const usePersonDetails = (
     },
     {
       onSuccess: (data) => {
-        if (!Boolean(data.person)) {
+        if (!Boolean(data?.person)) {
           router.push("/");
         }
       },
