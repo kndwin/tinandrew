@@ -6,15 +6,16 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "dev:email": "email dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
-    "@next/font": "^13.4.3",
     "@notionhq/client": "^2.2.3",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.3",
     "@react-email/button": "0.0.6",
+    "@react-email/components": "^0.0.6",
     "@react-email/html": "0.0.4",
     "@react-email/render": "^0.0.6",
     "@react-three/drei": "^9.57.1",

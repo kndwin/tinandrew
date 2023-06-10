@@ -24,7 +24,10 @@
     "paths": {
       "~/*": [
         "./src/*"
-      ]
+      ],
+			"~/emails": [
+				"./emails"
+			]
     },
     "strict": false
   },

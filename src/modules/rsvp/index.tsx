@@ -108,7 +108,9 @@ export const FormRSVP = () => {
         </div>
         <button
           type="submit"
-          disabled={!createRSVPMutation.isIdle}
+          disabled={
+            createRSVPMutation.isLoading || createRSVPMutation.isSuccess
+          }
           className="mx-auto w-fit rounded bg-black px-4 py-2 text-white"
         >
           {match(createRSVPMutation.status)

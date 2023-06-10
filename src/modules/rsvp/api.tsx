@@ -1,15 +1,12 @@
-import sendgrid from "@sendgrid/mail";
 import { Client } from "@notionhq/client";
+import { Resend } from "resend";
 import { type z } from "zod";
-import { render } from "@react-email/render";
-import { Html } from "@react-email/html";
-import { Button } from "@react-email/button";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { createRSVPSchema } from "~/modules/rsvp";
+import ConfirmRSVP from "emails/confirm-rsvp";
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY || "");
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 const client = new Client({ auth: process.env.NOTION_SECRET_TOKEN });
 
 const ID = {
@@ -20,7 +17,7 @@ export const rsvpRouter = createTRPCRouter({
   createRSVP: publicProcedure
     .input(createRSVPSchema)
     .mutation(async ({ input }) => {
-      const doesUserExist = await client.databases.query({
+      const res = await client.databases.query({
         database_id: ID.ResponseDatabase,
         filter: {
           property: "Person",
@@ -29,9 +26,22 @@ export const rsvpRouter = createTRPCRouter({
           },
         },
       });
-      // @ts-expect-error: Notion API is not typed
-      const pageId = doesUserExist.results[0].id;
+
+      const user = res?.results?.[0] as any;
+      const pageId = user?.id as string;
       const updatedRow = await updateRow(pageId, input);
+
+      const data = await resend.sendEmail({
+        // gmail doesn't allow this
+        // from: "Tina and Andrew<andrewtinaxing@gmail.com>",
+        from: "Tina and Andrew<onboarding@resend.dev>",
+        to: user.properties.Email.email,
+        subject: "Tina and Andrew's Wedding RSVP",
+        react: ConfirmRSVP({ name: input.person }),
+      });
+
+      console.log({ data });
+
       return {
         updatedRow,
       };
@@ -59,7 +69,7 @@ const updateRow = async (id: string, input: CreateRVSPProps) => {
         rich_text: [{ text: { content: input.qna } }],
       },
       Dietary: {
-        rich_text: [{ text: { content: input.qna } }],
+        rich_text: [{ text: { content: input.allergies } }],
       },
     },
   });
