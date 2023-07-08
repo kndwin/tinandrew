@@ -44,6 +44,7 @@ specifiers:
   server: link:@trpc/react-query/server
   superjson: 1.9.1
   tailwind-merge: ^1.9.1
+  tailwind-variants: ^0.1.10
   tailwindcss: ^3.2.0
   tailwindcss-animate: ^1.0.5
   three: ^0.150.1
@@ -83,6 +84,7 @@ dependencies:
   server: link:@trpc/react-query/server
   superjson: 1.9.1
   tailwind-merge: 1.9.1
+  tailwind-variants: 0.1.10_tailwindcss@3.2.6
   tailwindcss-animate: 1.0.5_tailwindcss@3.2.6
   three: 0.150.1
   three-stdlib: 2.21.8_three@0.150.1
@@ -4598,8 +4600,22 @@ packages:
       tslib: 2.5.0
     dev: true
 
+  /tailwind-merge/1.13.2:
+    resolution: {integrity: sha512-R2/nULkdg1VR/EL4RXg4dEohdoxNUJGLMnWIQnPKL+O9Twu7Cn3Rxi4dlXkDzZrEGtR+G+psSXFouWlpTyLhCQ==}
+    dev: false
+
   /tailwind-merge/1.9.1:
     resolution: {integrity: sha512-ED9MkiUHlmfh58EC1xHRqXcH1IQyRtmDP0AmXlugYkP2tvfu7ejtjFEHJLJt93mQ7ZJkcqSIgm9M394bq5vOJg==}
+    dev: false
+
+  /tailwind-variants/0.1.10_tailwindcss@3.2.6:
+    resolution: {integrity: sha512-PlOoXweMcOt2TXYr01lZ8iuRJG3M3voiWdAIb1vSqmuGuLvjtJwGphmwPToHRLXebC0dnKXow/xz2gRShCqI9w==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwindcss: '*'
+    dependencies:
+      tailwind-merge: 1.13.2
+      tailwindcss: 3.2.6_postcss@8.4.21
     dev: false
 
   /tailwindcss-animate/1.0.5_tailwindcss@3.2.6:

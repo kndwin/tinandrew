@@ -26,7 +26,10 @@ const questionsAndAnswers = {
 
 export const QuestionsAndAnswers = () => {
   return (
-    <section className="relative my-8 flex w-full flex-col items-center">
+    <section
+      id="q-and-a"
+      className="relative my-8 flex w-full flex-col items-center pt-[32px]"
+    >
       <SectionTitle title="Q + A" />
 
       <div className="flex max-w-[40ch] flex-col items-center gap-7 px-4 text-center">

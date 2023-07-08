@@ -56,7 +56,10 @@ const profile = {
 
 export const BridalParty = () => {
   return (
-    <section className="relative my-8 flex w-full flex-col items-center">
+    <section
+      id="bridal-party"
+      className="relative my-8 flex w-full flex-col items-center pt-[36px]"
+    >
       <SectionTitle title="Bridal Party" />
       <div className="mx-4 flex max-w-xl flex-col gap-12 sm:gap-1">
         <Profile {...profile.nathan} />

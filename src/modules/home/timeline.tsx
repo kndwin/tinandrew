@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { AddToCalendar } from "~/modules/home/add-to-calendar";
+import { SectionTitle } from "~/modules/home/section-title";
 
 type Timeline = {
   title: string;
@@ -72,52 +74,66 @@ const GridItem = (props: Timeline & { align: "left" | "right" }) => (
 );
 
 const MobileItem = (props: Timeline) => (
-  <div className="flex w-full max-w-[30ch] flex-col items-center text-center">
+  <div className="mx-auto flex w-full max-w-[30ch] flex-col gap-x-8 gap-y-2 animate-in slide-in-from-left md:max-w-none md:flex-row">
     <Image
       src={props.imgSrc}
-      className="w-24 self-center"
+      className="h-[100px] w-[100px] self-center md:self-start"
       height={100}
       width={100}
       alt={props.imgAlt}
     />
-    <p className="font-cardo text-xl text-brown">{props.title}</p>
-    <p className="font-karla text-lightbrown">{props.time}</p>
-    <p className="font-karla text-sm">{props.description}</p>
+    <div className="flex flex-col items-center text-center md:items-start md:text-left">
+      <p className="font-cardo text-xl text-brown">{props.title}</p>
+      <p className="font-karla text-lightbrown">{props.time}</p>
+      <p className="font-karla text-sm">{props.description}</p>
+    </div>
   </div>
 );
 
 export const Timeline = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
-    <div className="my-8 flex flex-col items-center justify-center gap-2">
-      <div className="hidden max-w-[70ch] grid-cols-[1fr_2em_1fr] gap-y-4 gap-x-2 sm:grid">
-        <div className="col-start-2 col-end-2 row-span-3 row-start-1 my-auto flex h-4/5 flex-col">
-          {access === "ceremony" ? (
-            <>
-              <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-              <div className="mx-auto h-4/5 w-[3px] bg-brown" />
-              <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-            </>
-          ) : (
-            <>
-              <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-              <div className="mx-auto h-2/5 w-[3px] bg-brown" />
-              <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-              <div className="mx-auto h-2/5 w-[3px] bg-brown" />
-              <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-            </>
-          )}
-        </div>
-        <GridItem {...timeline["ceremony"]} align="right" />
-        <GridItem {...timeline["socialHover"]} align="left" />
-        {access === "reception" && (
-          <GridItem {...timeline["reception"]} align="right" />
-        )}
-      </div>
-      <div className="flex flex-col gap-4 sm:hidden">
+    <section id="schedule" className="pt-[32px]">
+      <SectionTitle title="Schedule" />
+      <AddToCalendar />
+      <div className="mx-auto mt-16 flex w-full max-w-xl flex-col gap-12">
         <MobileItem {...timeline["ceremony"]} />
         <MobileItem {...timeline["socialHover"]} />
         {access === "reception" && <MobileItem {...timeline["reception"]} />}
       </div>
-    </div>
+    </section>
   );
 };
+
+const OldTimeline = ({ access }: { access: "reception" | "ceremony" }) => (
+  <div className="my-8 flex flex-col items-center justify-center gap-2">
+    <div className="hidden max-w-[70ch] grid-cols-[1fr_2em_1fr] gap-y-4 gap-x-2 sm:grid">
+      <div className="col-start-2 col-end-2 row-span-3 row-start-1 my-auto flex h-4/5 flex-col">
+        {access === "ceremony" ? (
+          <>
+            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
+            <div className="mx-auto h-4/5 w-[3px] bg-brown" />
+            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
+          </>
+        ) : (
+          <>
+            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
+            <div className="mx-auto h-2/5 w-[3px] bg-brown" />
+            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
+            <div className="mx-auto h-2/5 w-[3px] bg-brown" />
+            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
+          </>
+        )}
+      </div>
+      <GridItem {...timeline["ceremony"]} align="right" />
+      <GridItem {...timeline["socialHover"]} align="left" />
+      {access === "reception" && (
+        <GridItem {...timeline["reception"]} align="right" />
+      )}
+    </div>
+    <div className="flex flex-col gap-4 sm:hidden">
+      <MobileItem {...timeline["ceremony"]} />
+      <MobileItem {...timeline["socialHover"]} />
+      {access === "reception" && <MobileItem {...timeline["reception"]} />}
+    </div>
+  </div>
+);

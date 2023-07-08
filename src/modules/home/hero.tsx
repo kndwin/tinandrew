@@ -1,13 +1,15 @@
 import { Dialog, DialogContent, DialogTrigger } from "~/ui";
 import { FormRSVP } from "~/modules/rsvp";
 import Image from "next/image";
+import { cx } from "class-variance-authority";
+import { button } from "~/ui/button";
 
 export const Hero = ({ rsvped }: { rsvped: boolean }) => {
   return (
-    <section className="relative flex w-full flex-col items-center">
-      <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center pt-16">
+    <section id="rsvp" className="relative flex w-full flex-col items-center">
+      <div className="mx-auto flex min-h-screen flex-col items-center justify-center">
         <Image src="/hero-kittens.png" alt="Cat" height={70} width={175} />
-        <p className="max-w-[12ch] text-center font-gistesy text-5xl text-brown md:max-w-lg md:text-7xl">
+        <p className="w-full text-center font-gistesy text-5xl text-brown sm:max-w-none sm:text-[120px]">
           {`We're getting married!`}
         </p>
         <p className="color-text mt-4 text-center font-cardo text-[32px] font-light lowercase md:text-xl">
@@ -18,9 +20,7 @@ export const Hero = ({ rsvped }: { rsvped: boolean }) => {
           <div className="mt-16 text-center">
             <Dialog>
               <DialogTrigger asChild>
-                <button className="rounded-sm border-2 border-brown bg-white px-4 py-2 text-brown">
-                  RSVP Here
-                </button>
+                <button className={button()}>RSVP Here</button>
               </DialogTrigger>
               <DialogContent>
                 <FormRSVP />

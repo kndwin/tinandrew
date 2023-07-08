@@ -3,7 +3,10 @@ import { SectionTitle } from "./section-title";
 
 export const Location = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
-    <section className="relative my-8 flex w-full flex-col items-center">
+    <section
+      id="location"
+      className="relative my-8 flex w-full flex-col items-center pt-[32px]"
+    >
       <SectionTitle title="Location" />
 
       <div className="mx-auto flex max-w-xl flex-col gap-8">

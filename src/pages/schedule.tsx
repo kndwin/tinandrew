@@ -13,9 +13,8 @@ import type {
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 
+import { NavBar } from "~/modules/home/nav-bar";
 import { Hero } from "~/modules/home/hero";
-import { AddToCalendar } from "~/modules/home/add-to-calendar";
-import { SectionTitle } from "~/modules/home/section-title";
 import { Timeline } from "~/modules/home/timeline";
 import { Location } from "~/modules/home/location";
 import { QuestionsAndAnswers } from "~/modules/home/question-and-answers";
@@ -50,14 +49,15 @@ const Schedule: NextPage = (
 
   return (
     <div className="flex h-full flex-col">
-      <Hero rsvped={personDetails.data?.rsvped} />
-      <SectionTitle title="Schedule" />
-      <AddToCalendar />
-      <Timeline access={access} />
-      <Location access={access} />
-      <QuestionsAndAnswers />
-      <BridalParty />
-      <AboutUs />
+      <NavBar />
+      <div className="z-0 flex h-full flex-col">
+        <Hero rsvped={personDetails.data?.rsvped} />
+        <Timeline access={access} />
+        <Location access={access} />
+        <QuestionsAndAnswers />
+        <BridalParty />
+        <AboutUs />
+      </div>
     </div>
   );
 };

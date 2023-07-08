@@ -1,3 +1,14 @@
+import { button } from "~/ui/button";
+
+const event = {
+  title: "💒 Andrew + Tina's Wedding",
+  description: "Celebrate the wedding of Andrew and Tina!",
+  location:
+    "St John's Anglican Cathedral, 195 Church St, Parramatta NSW 2150, Australia",
+  start: "20231104T230000Z",
+  end: "20231105T010000Z",
+};
+
 export const AddToCalendar = () => {
   return (
     <div className="flex flex-col items-center">
@@ -5,15 +16,10 @@ export const AddToCalendar = () => {
         Saturday November 4th, 2023
       </p>
       <button
-        className="mt-2 rounded-full border border-lightbrown bg-white px-3 py-1 text-xs text-lightbrown"
+        className={button({
+          className: "mt-2 rounded-full px-3 py-1 text-sm",
+        })}
         onClick={() => {
-          const event = {
-            title: "Wedding",
-            description: "Andrew + Tina",
-            location: "Melbourne, Australia",
-            start: "2023-11-04T17:00:00+11:00",
-            end: "2023-11-04T23:00:00+11:00",
-          };
           const url = new URL("https://calendar.google.com/calendar/render");
           url.searchParams.set("action", "TEMPLATE");
           url.searchParams.set("text", event.title);

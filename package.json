@@ -40,6 +40,7 @@
     "server": "link:@trpc/react-query/server",
     "superjson": "1.9.1",
     "tailwind-merge": "^1.9.1",
+    "tailwind-variants": "^0.1.10",
     "tailwindcss-animate": "^1.0.5",
     "three": "^0.150.1",
     "three-stdlib": "^2.21.8",
