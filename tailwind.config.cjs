@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         brown: "#594B44",
         lightbrown: "#766156",
+        cream: "#d9d3d0",
         muted: "#8e8e8e",
         dark: "#1C1C1C",
         border: "hsl(var(--border))",
