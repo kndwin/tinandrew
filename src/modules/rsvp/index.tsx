@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useState, type SVGProps } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { match } from "ts-pattern";
 import ReactConfetti from "react-confetti";
+import { tv } from "tailwind-variants";
 
 import { api } from "~/utils/api";
 import { useViewportSize } from "~/hooks";
 import { StyledLabel, Card } from "~/ui";
 import { useRouter } from "next/router";
+import { Dialog, DialogContent, DialogTrigger } from "~/ui";
+import { button } from "~/ui/button";
 
 const rsvpFormSchema = z.object({
-  attending: z.enum(["Maybe", "No", "Yes"]),
+  attending: z.enum(["No", "Yes"]),
   plusOne: z.enum(["No", "Yes"]),
   allergies: z.string(),
   qna: z.string(),
@@ -23,11 +26,26 @@ export const createRSVPSchema = rsvpFormSchema.extend({
 
 type FormSchema = z.infer<typeof createRSVPSchema>;
 
+const formButton = tv({
+  base: ["px-2 py-1 text-xs rounded-sm border"],
+  variants: {
+    selected: {
+      true: "border-dark text-dark",
+      false: "bg-white text-muted",
+    },
+  },
+});
+
 export const FormRSVP = () => {
   const router = useRouter();
   const [confetti, setConfetti] = useState(false);
+  const [open, setOpen] = useState(false);
   const methods = useForm<FormSchema>({
     resolver: zodResolver(rsvpFormSchema),
+    defaultValues: {
+      attending: "Yes",
+      plusOne: "No",
+    },
   });
 
   const {
@@ -38,7 +56,7 @@ export const FormRSVP = () => {
 
   const createRSVPMutation = api.rsvp.createRSVP.useMutation();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     createRSVPMutation.mutate(
       { ...data, person: router.query?.person as string },
       {
@@ -52,85 +70,146 @@ export const FormRSVP = () => {
   const { width, height } = useViewportSize();
 
   return (
-    <FormProvider {...methods}>
-      <form className="flex w-full max-w-md flex-col gap-8" onSubmit={onSubmit}>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <StyledLabel>Attending the ceremony</StyledLabel>
-            <select
-              {...register("attending")}
-              defaultValue={"Yes"}
-              className="w-fit appearance-none rounded border border-gray-300 px-2 py-1"
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className={button()}>RSVP Here</button>
+      </DialogTrigger>
+      <DialogContent>
+        <FormProvider {...methods}>
+          <form
+            className="flex w-full max-w-md flex-col gap-8"
+            onSubmit={onSubmit}
+          >
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <p className="font-karla text-brown">
+                  {"Will you be attending the ceremony?"}
+                </p>
+                <div className="flex h-8 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => methods.setValue("attending", "Yes")}
+                    className={formButton({
+                      selected: methods.watch("attending") === "Yes",
+                    })}
+                  >
+                    {`Yes, I'll be there`}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => methods.setValue("attending", "No")}
+                    className={formButton({
+                      selected: methods.watch("attending") === "No",
+                    })}
+                  >
+                    {`No, I won't be there`}
+                  </button>
+                </div>
+                {errors.attending && (
+                  <Card type="error" message={errors.attending.message} />
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="font-karla text-brown">
+                  {`Will you be bringing a +1 to the ceremony?`}
+                </p>
+                <div className="flex h-8 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => methods.setValue("plusOne", "Yes")}
+                    className={formButton({
+                      selected: methods.watch("plusOne") === "Yes",
+                    })}
+                  >
+                    {`Yes, I’ll be bringing a +1`}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => methods.setValue("plusOne", "No")}
+                    className={formButton({
+                      selected: methods.watch("plusOne") === "No",
+                    })}
+                  >
+                    {`No, I won’t be bringing anyone`}
+                  </button>
+                </div>
+                {errors.attending && (
+                  <Card type="error" message={errors?.plusOne?.message} />
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="font-karla text-brown">
+                  {"Allergies/Dietary Requirements"}
+                </p>
+
+                <textarea
+                  {...register("allergies")}
+                  className="rounded border border-muted px-2 py-1 text-sm text-dark"
+                  defaultValue={""}
+                />
+                {errors.allergies && (
+                  <Card type="error" message={errors.allergies.message} />
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="font-karla text-brown">
+                  {"Questions/Comments/Wisdom/Favourite Joke"}
+                </p>
+                <textarea
+                  {...register("qna")}
+                  className="rounded border border-muted px-2 py-1 text-sm text-dark"
+                  defaultValue={""}
+                />
+                {errors.allergies && (
+                  <Card type="error" message={errors?.qna?.message} />
+                )}
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={
+                createRSVPMutation.isLoading || createRSVPMutation.isSuccess
+              }
+              className={
+                "flex items-center justify-center rounded bg-brown py-2 text-xs text-white"
+              }
             >
-              <option value="Yes">{`Yes, I'll be there`}</option>
-              <option value="No">No</option>
-            </select>
-            {errors.attending && (
-              <Card type="error" message={errors.attending.message} />
+              {match(createRSVPMutation.status)
+                .with("loading", () => <Loader className="animate-spin" />)
+                .with("success", () => "Done!")
+                .otherwise(() => "RSVP")}
+            </button>
+            {createRSVPMutation.isSuccess && (
+              <Card type="success" message={"🎉 Yay! You've been added"} />
             )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <StyledLabel>Bring a +1</StyledLabel>
-            <select
-              {...register("plusOne")}
-              defaultValue={"Yes"}
-              className="w-fit appearance-none rounded border border-gray-300 px-2 py-1"
-            >
-              <option value="Yes">{`I'll be bringing one`}</option>
-              <option value="No">No</option>
-            </select>
-            {errors.attending && (
-              <Card type="error" message={errors?.plusOne?.message} />
+            {createRSVPMutation.isError && (
+              <Card type="error" message={"😭 something went wrong!"} />
             )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <StyledLabel>Allergies/Dietary Requirements</StyledLabel>
-            <textarea
-              {...register("allergies")}
-              className="rounded border border-gray-300 px-2 py-1"
-              defaultValue={"N/A"}
-            />
-            {errors.allergies && (
-              <Card type="error" message={errors.allergies.message} />
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <StyledLabel>Questions/Comments</StyledLabel>
-            <textarea
-              {...register("qna")}
-              className="rounded border border-gray-300 px-2 py-1"
-              defaultValue={"N/A"}
-            />
-            {errors.allergies && (
-              <Card type="error" message={errors?.qna?.message} />
-            )}
-          </div>
-        </div>
-        <button
-          type="submit"
-          disabled={
-            createRSVPMutation.isLoading || createRSVPMutation.isSuccess
-          }
-          className="mx-auto w-fit rounded bg-black px-4 py-2 text-white"
-        >
-          {match(createRSVPMutation.status)
-            .with("loading", () => "Submitting")
-            .with("success", () => "Done!")
-            .otherwise(() => "RSVP")}
-        </button>
-        {createRSVPMutation.isSuccess && (
-          <Card type="success" message={"🎉 Yay! You've been added"} />
-        )}
-        {createRSVPMutation.isError && (
-          <Card type="error" message={"😭 something went wrong!"} />
-        )}
-      </form>
-      <ReactConfetti
-        recycle={false}
-        run={confetti}
-        width={width}
-        height={height}
-      />
-    </FormProvider>
+          </form>
+          <ReactConfetti
+            recycle={false}
+            run={confetti}
+            width={width}
+            height={height}
+          />
+        </FormProvider>
+      </DialogContent>
+    </Dialog>
   );
 };
+
+const Loader = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth={2}
+    {...props}
+  >
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);

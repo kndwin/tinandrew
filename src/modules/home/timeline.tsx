@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { type SVGProps } from "react";
 import { AddToCalendar } from "~/modules/home/add-to-calendar";
 import { SectionTitle } from "~/modules/home/section-title";
 
@@ -13,127 +13,151 @@ const timeline = {
   ceremony: {
     title: "Ceremony",
     time: "12:45pm - 2:30pm",
-    description:
-      "Please arrive and be seated by 12:45pm for a 1:00pm start. Children are welcome.",
-    imgSrc: "/timeline-ring.png",
-    imgAlt: "Wedding Ring",
-  },
-  socialHover: {
-    title: "Social Hover",
-    time: "2:30pm - 4:00pm",
-    description:
-      "After the ceremony and photos, please join us for light refreshments in the Parish Hall next to the church.",
-    imgSrc: "/timeline-cake.png",
-    imgAlt: "Wedding Cake",
+    description: `Please arrive and be seated by 12:45pm for a 1:00pm start. Children are welcome. 
+Onsite parking will not be available for guests attending the ceremony. We recommend parking at Westfields Parramatta  (4 hours free for plus members) or catching the train to Parramatta Station. Both are a 5-minute walk to the church. `,
+    address: {
+      title: "St John's Anglican Cathedral",
+      location: "195 Church St, Parramatta NSW 2150, Australia",
+      googleUrl: "https://goo.gl/maps/uLHcivFBcfzuVr8f7",
+    },
   },
   reception: {
     title: "Reception",
-    time: "7:00pm - 12:00pm",
+    time: "6:45pm - 12:00am",
     description:
-      "Please arrive and be seated by 12:45pm for a 1:00pm start. Children are welcome.",
-    imgSrc: "/timeline-steak.png",
-    imgAlt: "Wedding Steak",
+      "Limited on-site parking will be available for guests attending the reception. There is parking in nearby streets and we also recommend catching the train to Epping Station, which is a 5-minute walk to the reception.",
+    address: {
+      title: "Epping Club",
+      location: "45-47 Rawson St, Epping NSW 2121",
+      googleUrl: "https://goo.gl/maps/gpmucNuKX7BZ8d9Y6",
+    },
   },
 };
 
-const GridItem = (props: Timeline & { align: "left" | "right" }) => (
-  <>
-    {props.align == "left" && (
-      <>
-        <Image
-          src={props.imgSrc}
-          className="w-24 self-center justify-self-end"
-          height={100}
-          width={100}
-          alt={props.imgAlt}
-        />
-        <div className="p-4 text-left">
-          <p className="font-cardo text-xl text-brown">{props.title}</p>
-          <p className="font-karla text-lightbrown">{props.time}</p>
-          <p className="font-karla text-sm">{props.description}</p>
-        </div>
-      </>
-    )}
-    {props.align == "right" && (
-      <>
-        <div className="p-4 text-right">
-          <p className="font-cardo text-xl text-brown">{props.title}</p>
-          <p className="font-karla text-lightbrown">{props.time}</p>
-          <p className="font-karla text-sm">{props.description}</p>
-        </div>
-        <Image
-          src={props.imgSrc}
-          className="w-24 self-center"
-          height={100}
-          width={100}
-          alt={props.imgAlt}
-        />
-      </>
-    )}
-  </>
-);
-
-const MobileItem = (props: Timeline) => (
-  <div className="mx-auto flex w-full max-w-[30ch] flex-col gap-x-8 gap-y-2 animate-in slide-in-from-left md:max-w-none md:flex-row">
-    <Image
-      src={props.imgSrc}
-      className="h-[100px] w-[100px] self-center md:self-start"
-      height={100}
-      width={100}
-      alt={props.imgAlt}
-    />
-    <div className="flex flex-col items-center text-center md:items-start md:text-left">
-      <p className="font-cardo text-xl text-brown">{props.title}</p>
-      <p className="font-karla text-lightbrown">{props.time}</p>
-      <p className="font-karla text-sm">{props.description}</p>
-    </div>
-  </div>
-);
-
 export const Timeline = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
-    <section id="schedule" className="pt-[32px]">
+    <section id="schedule" className="px-4 pt-[32px] sm:px-16">
       <SectionTitle title="Schedule" />
-      <AddToCalendar />
-      <div className="mx-auto mt-16 flex w-full max-w-xl flex-col gap-12">
-        <MobileItem {...timeline["ceremony"]} />
-        <MobileItem {...timeline["socialHover"]} />
-        {access === "reception" && <MobileItem {...timeline["reception"]} />}
+      <p className="mx-auto w-fit border-b border-cream pb-4 font-karla text-[24px] font-medium capitalize text-brown">
+        SATURDAY NOVEMBER 4TH, 2023
+      </p>
+      <div className="mx-auto mt-16 flex w-full max-w-4xl flex-col gap-16">
+        <div className="flex flex-col gap-2 border-b border-cream pb-10">
+          <div className="mb-[18px] flex flex-col items-start gap-x-4 md:flex-row md:items-center">
+            <h2 className="mb-4 font-cardo text-[48px] leading-none text-brown md:mb-0">
+              {timeline.ceremony.title}
+            </h2>
+            <AddToCalendar type="ceremony" />
+          </div>
+
+          <div className="grid grid-cols-[20px_1fr] gap-x-8 gap-y-4">
+            <ClockIcon className="h-8 w-8" />
+            <p className="my-auto font-karla text-[24px] leading-none text-brown">
+              {timeline.ceremony.time}
+            </p>
+            <MarkPinIcon className="h-8 min-h-[32px] w-8" />
+            <div className="my-auto w-full">
+              <p className="mb-0 font-karla text-[24px] font-medium leading-none text-brown">
+                {timeline.ceremony.address.title}
+              </p>
+              <a
+                className="font-karla text-[24px] font-extralight text-brown underline"
+                href={timeline.ceremony.address.googleUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {timeline.ceremony.address.location}
+              </a>
+            </div>
+          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53058.888545853464!2d150.96265947068437!3d-33.781835844907334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12a31f886e6107%3A0xd5a88d970a73b40f!2sSt%20John&#39;s%20Anglican%20Cathedral!5e0!3m2!1sen!2sau!4v1690013674230!5m2!1sen!2sau"
+            width="100%"
+            height={318}
+            className="mt-5"
+            style={{ border: 0 }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <p className="mt-10 whitespace-pre-wrap break-words font-karla text-[20px] font-light leading-[30px] text-dark">
+            {timeline.ceremony.description}
+          </p>
+        </div>
+        {access === "reception" && (
+          <div className="flex flex-col gap-2 border-b border-cream pb-10">
+            <div className="mb-[18px] flex flex-col items-start gap-x-4 md:flex-row md:items-center">
+              <h2 className="mb-4 font-cardo text-[48px] leading-none text-brown md:mb-0">
+                {timeline.reception.title}
+              </h2>
+              <AddToCalendar type="reception" />
+            </div>
+
+            <div className="grid grid-cols-[20px_1fr] gap-x-8 gap-y-4">
+              <ClockIcon className="h-8 w-8" />
+              <p className="my-auto font-karla text-[24px] leading-none text-brown">
+                {timeline.reception.time}
+              </p>
+              <MarkPinIcon className="h-8 min-h-[32px] w-8" />
+              <div className="my-auto w-full">
+                <p className="mb-0 font-karla text-[24px] font-medium leading-none text-brown">
+                  {timeline.reception.address.title}
+                </p>
+                <a
+                  className="font-karla text-[24px] font-extralight text-brown underline"
+                  href={timeline.reception.address.googleUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {timeline.reception.address.location}
+                </a>
+              </div>
+            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.5102512086673!2d151.0785641152077!3d-33.773319380682764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12a69d4660ea41%3A0xa5ec416785664e4c!2sThe%20Epping%20Club!5e0!3m2!1sen!2sau!4v1690016908385!5m2!1sen!2sau"
+              width="100%"
+              height={318}
+              className="mt-5"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <p className="mt-10 whitespace-pre-wrap break-words font-karla text-[20px] font-light leading-[30px] text-dark">
+              {timeline.reception.description}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
-const OldTimeline = ({ access }: { access: "reception" | "ceremony" }) => (
-  <div className="my-8 flex flex-col items-center justify-center gap-2">
-    <div className="hidden max-w-[70ch] grid-cols-[1fr_2em_1fr] gap-y-4 gap-x-2 sm:grid">
-      <div className="col-start-2 col-end-2 row-span-3 row-start-1 my-auto flex h-4/5 flex-col">
-        {access === "ceremony" ? (
-          <>
-            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-            <div className="mx-auto h-4/5 w-[3px] bg-brown" />
-            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-          </>
-        ) : (
-          <>
-            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-            <div className="mx-auto h-2/5 w-[3px] bg-brown" />
-            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-            <div className="mx-auto h-2/5 w-[3px] bg-brown" />
-            <div className="mx-auto h-[15px] w-[15px] rounded-full bg-brown" />
-          </>
-        )}
-      </div>
-      <GridItem {...timeline["ceremony"]} align="right" />
-      <GridItem {...timeline["socialHover"]} align="left" />
-      {access === "reception" && (
-        <GridItem {...timeline["reception"]} align="right" />
-      )}
-    </div>
-    <div className="flex flex-col gap-4 sm:hidden">
-      <MobileItem {...timeline["ceremony"]} />
-      <MobileItem {...timeline["socialHover"]} />
-      {access === "reception" && <MobileItem {...timeline["reception"]} />}
-    </div>
-  </div>
+const ClockIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg width={33} height={32} viewBox="0 0 33 32" fill="none" {...props}>
+    <path
+      stroke="#766156"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2.5}
+      d="M16.5 8v8l5.334 2.666m8-2.667c0 7.364-5.97 13.334-13.334 13.334-7.363 0-13.333-5.97-13.333-13.334 0-7.363 5.97-13.333 13.333-13.333 7.364 0 13.334 5.97 13.334 13.333Z"
+    />
+  </svg>
+);
+
+const MarkPinIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 33 32" width={33} height={32} fill="none" {...props}>
+    <path
+      stroke="#766156"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2.5}
+      d="M16.5 17.333a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+    />
+    <path
+      stroke="#766156"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2.5}
+      d="M16.5 29.333c5.333-5.334 10.666-10.11 10.666-16 0-5.891-4.775-10.667-10.666-10.667S5.833 7.442 5.833 13.333c0 5.89 5.333 10.666 10.667 16Z"
+    />
+  </svg>
 );

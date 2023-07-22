@@ -7,7 +7,7 @@ export const SectionTitle = ({ title }: { title: string }) => {
       <Text size="display">{title}</Text>
       <Image
         src="/timeline-flowers.png"
-        className="w-24"
+        className="-m-4 w-24"
         height={800}
         width={500}
         alt="Flower"

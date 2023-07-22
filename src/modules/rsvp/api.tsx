@@ -31,6 +31,7 @@ export const rsvpRouter = createTRPCRouter({
       const pageId = user?.id as string;
       const updatedRow = await updateRow(pageId, input);
 
+      /*
       const data = await resend.sendEmail({
         // gmail doesn't allow this
         // from: "Tina and Andrew<andrewtinaxing@gmail.com>",
@@ -38,9 +39,11 @@ export const rsvpRouter = createTRPCRouter({
         to: user.properties.Email.email,
         subject: "Tina and Andrew's Wedding RSVP",
         react: ConfirmRSVP({ name: input.person }),
+
       });
 
       console.log({ data });
+			 */
 
       return {
         updatedRow,

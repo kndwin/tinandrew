@@ -37,12 +37,11 @@ export const NavBar = () => {
       <p
         className={cx(
           "font-gistesy text-brown transition-all duration-300 ease-in-out",
-          "mx-auto sm:mx-0",
           scrolled ? "text-[36px]" : "text-[48px]"
         )}
-      >{`Andrew + Tina`}</p>
+      >{`Andrew + tina`}</p>
 
-      <div className="hidden gap-[24px] transition-all sm:flex lg:gap-[40px]">
+      <div className="hidden gap-[24px] transition-all lg:flex lg:gap-[40px]">
         {navOptions.map(({ name, id }) => (
           <a
             key={id}
@@ -69,9 +68,9 @@ export const NavBar = () => {
         ))}
       </div>
       <div>
-        <p className="font-cardo text-[32px] font-medium text-lightbrown">{`4 . 11 . 23`}</p>
+        <p className="hidden font-cardo text-[32px] font-medium text-lightbrown lg:block">{`4 . 11 . 23`}</p>
       </div>
-      <div className="block sm:hidden">
+      <div className="block lg:hidden">
         <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
           <path
             d="M1 1H33"
@@ -105,10 +104,6 @@ const navOptions = [
   {
     name: "Schedule",
     id: "schedule",
-  },
-  {
-    name: "Location",
-    id: "location",
   },
   {
     name: "Q&A",

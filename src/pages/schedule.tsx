@@ -53,7 +53,6 @@ const Schedule: NextPage = (
       <div className="z-0 flex h-full flex-col">
         <Hero rsvped={personDetails.data?.rsvped} />
         <Timeline access={access} />
-        <Location access={access} />
         <QuestionsAndAnswers />
         <BridalParty />
         <AboutUs />
