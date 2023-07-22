@@ -8,10 +8,11 @@ import { tv } from "tailwind-variants";
 
 import { api } from "~/utils/api";
 import { useViewportSize } from "~/hooks";
-import { StyledLabel, Card } from "~/ui";
+import { Card } from "~/ui";
 import { useRouter } from "next/router";
 import { Dialog, DialogContent, DialogTrigger } from "~/ui";
 import { button } from "~/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 
 const rsvpFormSchema = z.object({
   attending: z.enum(["No", "Yes"]),
@@ -36,7 +37,13 @@ const formButton = tv({
   },
 });
 
-export const FormRSVP = () => {
+type FormRSVPProps = {
+  trigger?: React.ReactNode;
+};
+export const FormRSVP = ({
+  trigger = <button className={button()}>RSVP Here</button>,
+}: FormRSVPProps) => {
+  const client = useQueryClient();
   const router = useRouter();
   const [confetti, setConfetti] = useState(false);
   const [open, setOpen] = useState(false);
@@ -61,6 +68,7 @@ export const FormRSVP = () => {
       { ...data, person: router.query?.person as string },
       {
         onSuccess: () => {
+          client.invalidateQueries(["getPerson"]);
           setConfetti(true);
         },
       }
@@ -71,9 +79,7 @@ export const FormRSVP = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button className={button()}>RSVP Here</button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <FormProvider {...methods}>
           <form
@@ -187,6 +193,7 @@ export const FormRSVP = () => {
             )}
           </form>
           <ReactConfetti
+            className="absolute top-0 left-0"
             recycle={false}
             run={confetti}
             width={width}

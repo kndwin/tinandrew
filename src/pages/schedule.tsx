@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 import { NavBar } from "~/modules/home/nav-bar";
 import { Hero } from "~/modules/home/hero";
 import { Timeline } from "~/modules/home/timeline";
-import { Location } from "~/modules/home/location";
 import { QuestionsAndAnswers } from "~/modules/home/question-and-answers";
 import { BridalParty } from "~/modules/home/bridal-party";
 import { AboutUs } from "~/modules/home/about-us";
@@ -26,9 +25,7 @@ const usePersonDetails = (
 ) => {
   const router = useRouter();
   const personDetails = api.rego.getPerson.useQuery(
-    {
-      person: props.person as string,
-    },
+    { person: props.person as string },
     {
       onSuccess: (data) => {
         if (!Boolean(data?.person)) {
@@ -51,7 +48,10 @@ const Schedule: NextPage = (
     <div className="flex h-full flex-col">
       <NavBar />
       <div className="z-0 flex h-full flex-col">
-        <Hero rsvped={personDetails.data?.rsvped} />
+        <Hero
+          rsvped={personDetails.data?.rsvped}
+          attending={personDetails.data?.attending}
+        />
         <Timeline access={access} />
         <QuestionsAndAnswers />
         <BridalParty />

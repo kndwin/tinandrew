@@ -52,6 +52,7 @@ const transformNotionPerson = (person: any) => {
     email: person?.["Email"]?.email ?? "",
     rsvped: person?.["RSVPed"]?.checkbox ?? false,
     access: person?.["Access"]?.select?.name ?? "",
+    attending: person?.["Attending"]?.select?.name ?? "",
   };
 };
 

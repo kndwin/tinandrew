@@ -3,7 +3,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMemo, useRef } from "react";
 
-export const Hero = ({ rsvped }: { rsvped: boolean }) => {
+export const Hero = ({
+  rsvped,
+  attending,
+}: {
+  rsvped: boolean;
+  attending: "Yes" | "No";
+}) => {
   return (
     <section id="rsvp" className="relative flex w-full flex-col items-center">
       <div className="mx-auto flex h-fit flex-col items-center justify-center pt-40 pb-8 md:min-h-screen md:p-0">
@@ -11,7 +17,7 @@ export const Hero = ({ rsvped }: { rsvped: boolean }) => {
         <p className="w-full text-center font-gistesy text-5xl text-brown sm:max-w-none sm:text-[120px]">
           {`We're getting married!`}
         </p>
-        <p className="color-text mt-4 text-center font-cardo text-[32px] font-light lowercase md:text-xl">
+        <p className="mt-4 text-center font-cardo text-[32px] font-light lowercase text-brown">
           {`and you're invited to celebrate with us!`}
         </p>
 
@@ -22,6 +28,34 @@ export const Hero = ({ rsvped }: { rsvped: boolean }) => {
               Please RSVP by August 4th
             </p>
           </div>
+        )}
+        {rsvped && attending === "Yes" && (
+          <>
+            <div className="mt-16 whitespace-pre-line rounded-lg bg-muted/5 p-4 text-center text-[24px] leading-tight text-brown">
+              {`Hi Kevin, you’ve RSVPed!\nLooking forward to seeing you there!`}
+            </div>
+            <FormRSVP
+              trigger={
+                <a className="mt-4 cursor-pointer font-karla text-[20px] text-brown">
+                  Change Details
+                </a>
+              }
+            />
+          </>
+        )}
+        {rsvped && attending === "No" && (
+          <>
+            <div className="mt-16 max-w-[350px] whitespace-pre-line rounded-lg bg-muted/5 p-4 text-center text-[24px] leading-tight text-brown">
+              {`Sad to hear you can’t make it, but we’d still love to catch up!\nReach out to us and we’ll get back to you.`}
+            </div>
+            <FormRSVP
+              trigger={
+                <a className="mt-4 cursor-pointer font-karla text-[20px] text-brown">
+                  Change Details
+                </a>
+              }
+            />
+          </>
         )}
       </div>
       <ImageSection />
