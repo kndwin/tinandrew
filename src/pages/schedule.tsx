@@ -45,7 +45,7 @@ const Schedule: NextPage = (
     personDetails?.data?.access === "Reception" ? "reception" : "ceremony";
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="max-w-screen flex h-full flex-col overflow-x-hidden">
       <NavBar />
       <div className="z-0 flex h-full flex-col">
         <Hero

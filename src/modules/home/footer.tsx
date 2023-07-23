@@ -5,7 +5,7 @@ import { format, subSeconds } from "date-fns";
 
 export const Footer = () => {
   return (
-    <div className="flex w-screen flex-col items-center gap-10">
+    <div className="flex w-screen flex-col items-center gap-10 overflow-x-hidden">
       <Image
         alt="Tina and Andrew 3 polaroids"
         className="w-screen md:hidden"
