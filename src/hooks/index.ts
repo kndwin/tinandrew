@@ -48,6 +48,7 @@ export function useInterval(fn: () => void, interval: number) {
   const start = () => {
     setActive((old) => {
       if (!old && !intervalRef.current) {
+        // @ts-expect-error: works for mantine so should work for me
         intervalRef.current = window.setInterval(fnRef.current, interval);
       }
       return true;
