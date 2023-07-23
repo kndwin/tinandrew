@@ -177,7 +177,7 @@ export const FormRSVP = ({
                 createRSVPMutation.isLoading || createRSVPMutation.isSuccess
               }
               className={
-                "flex items-center justify-center rounded bg-brown py-2 text-xs text-white"
+                "flex h-8 items-center justify-center rounded bg-brown py-2 text-xs text-white"
               }
             >
               {match(createRSVPMutation.status)

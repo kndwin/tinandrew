@@ -1,6 +1,4 @@
-import Image from "next/image";
 import { SectionTitle } from "./section-title";
-import { Text } from "~/ui";
 
 const questionsAndAnswers = {
   rsvp: {
@@ -9,18 +7,16 @@ const questionsAndAnswers = {
   },
   children: {
     title: "Children and +1's",
-    description:
-      "We love children, but due to limited space, we are unable to accommodate children at the reception. We hope you understand.",
+    description: "Children and +1’s are welcome to the ceremony. ",
   },
   gifts: {
     title: "Gifts",
-    description:
-      "Your presence is the best gift we could ask for. If you would like to give a gift, we have a wishing well set up at the reception.",
+    description: `If you would like to give us a gift - first of all, thank you! We would prefer a monetary gift. We will have a wishing well on the day as well.\n\nOur bank details:\nAndrew and Tina\nBSB: 670-864\nAcc: 2347 2813`,
   },
   contact: {
     title: "How to contact us",
     description:
-      "If you have any questions, please contact us at: <a href='mailto:",
+      "For anything else, reach out to us at andrewtinaxing@gmail.com! Or message/call us at 0435594333.",
   },
 };
 
@@ -32,47 +28,40 @@ export const QuestionsAndAnswers = () => {
     >
       <SectionTitle title="Q + A" />
 
-      <div className="flex max-w-[40ch] flex-col items-center gap-7 px-4 text-center">
-        <div className="flex flex-col items-center gap-3">
-          <Text size="subheading" className="text-brown">
+      <div className="flex w-full max-w-[60ch] flex-col items-center gap-10 px-4 text-left">
+        <div className="flex w-full flex-col gap-3">
+          <p className="font-cardo text-[32px] text-brown">
             {questionsAndAnswers.rsvp.title}
-          </Text>
-          <Text>{questionsAndAnswers.rsvp.description}</Text>
+          </p>
+          <p className="font-karla text-[20x]">
+            {questionsAndAnswers.rsvp.description}
+          </p>
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <Text size="subheading" className="text-brown">
+        <div className="flex w-full flex-col gap-3">
+          <p className="font-cardo text-[32px] text-brown">
             {questionsAndAnswers.children.title}
-          </Text>
-          <Text>{questionsAndAnswers.children.description}</Text>
+          </p>
+          <p className="font-karla text-[20x]">
+            {questionsAndAnswers.children.description}
+          </p>
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <Text size="subheading" className="text-brown">
+        <div className="flex w-full flex-col gap-3">
+          <p className="font-cardo text-[32px] text-brown">
             {questionsAndAnswers.gifts.title}
-          </Text>
-          <Text>{questionsAndAnswers.gifts.description}</Text>
+          </p>
+          <p className="whitespace-pre-line font-karla text-[20x]">
+            {questionsAndAnswers.gifts.description}
+          </p>
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <Text size="subheading" className="text-brown">
+        <div className="flex w-full flex-col gap-3">
+          <p className="font-cardo text-[32px] text-brown">
             {questionsAndAnswers.contact.title}
-          </Text>
-          <Text>{questionsAndAnswers.contact.description}</Text>
+          </p>
+          <p className="font-karla text-[20x]">
+            {questionsAndAnswers.contact.description}
+          </p>
         </div>
       </div>
-
-      <Image
-        className="absolute right-0 top-0 -z-10 hidden sm:block"
-        src="/hero-polaroids-b.png"
-        height={500}
-        width={250}
-        alt="Image Polaroid"
-      />
-      <Image
-        className="absolute -left-8 top-full -z-10 hidden -translate-y-full -rotate-12 sm:block"
-        src="/hero-polaroids-a.png"
-        height={600}
-        width={300}
-        alt="Image Polaroid"
-      />
     </section>
   );
 };

@@ -18,7 +18,7 @@ import { Hero } from "~/modules/home/hero";
 import { Timeline } from "~/modules/home/timeline";
 import { QuestionsAndAnswers } from "~/modules/home/question-and-answers";
 import { BridalParty } from "~/modules/home/bridal-party";
-import { AboutUs } from "~/modules/home/about-us";
+import { Footer } from "~/modules/home/footer";
 
 const usePersonDetails = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -49,13 +49,16 @@ const Schedule: NextPage = (
       <NavBar />
       <div className="z-0 flex h-full flex-col">
         <Hero
-          rsvped={personDetails.data?.rsvped}
-          attending={personDetails.data?.attending}
+          person={{
+            attending: personDetails.data?.attending,
+            name: personDetails.data?.person.split(" ")[0],
+            rsvped: personDetails.data?.rsvped,
+          }}
         />
         <Timeline access={access} />
         <QuestionsAndAnswers />
         <BridalParty />
-        <AboutUs />
+        <Footer />
       </div>
     </div>
   );

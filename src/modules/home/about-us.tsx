@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { SectionTitle } from "./section-title";
 import { Text } from "~/ui";
 
 const aboutUs = {
   rsvp: {
-    title: "RSVP",
+    title: "RSVP",                                                                    R
     description: "Please RSVP by 30th September 2021",
   },
   children: {

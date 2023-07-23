@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { useMemo, useRef } from "react";
 
 export const Hero = ({
-  rsvped,
-  attending,
+  person,
 }: {
-  rsvped: boolean;
-  attending: "Yes" | "No";
+  person: {
+    rsvped: boolean;
+    attending: "Yes" | "No";
+    name: string;
+  };
 }) => {
   return (
     <section id="rsvp" className="relative flex w-full flex-col items-center">
@@ -21,7 +23,7 @@ export const Hero = ({
           {`and you're invited to celebrate with us!`}
         </p>
 
-        {!rsvped && (
+        {!person.rsvped && (
           <div className="mt-16 text-center">
             <FormRSVP />
             <p className="mt-3 text-sm text-lightbrown">
@@ -29,10 +31,10 @@ export const Hero = ({
             </p>
           </div>
         )}
-        {rsvped && attending === "Yes" && (
+        {person.rsvped && person.attending === "Yes" && (
           <>
             <div className="mt-16 whitespace-pre-line rounded-lg bg-muted/5 p-4 text-center text-[24px] leading-tight text-brown">
-              {`Hi Kevin, you’ve RSVPed!\nLooking forward to seeing you there!`}
+              {`Hi ${person.name}, you’ve RSVPed!\nLooking forward to seeing you there!`}
             </div>
             <FormRSVP
               trigger={
@@ -43,7 +45,7 @@ export const Hero = ({
             />
           </>
         )}
-        {rsvped && attending === "No" && (
+        {person.rsvped && person.attending === "No" && (
           <>
             <div className="mt-16 max-w-[350px] whitespace-pre-line rounded-lg bg-muted/5 p-4 text-center text-[24px] leading-tight text-brown">
               {`Sad to hear you can’t make it, but we’d still love to catch up!\nReach out to us and we’ll get back to you.`}
@@ -93,7 +95,7 @@ const ImageSection = () => {
         {...polaroidImageProps}
         layout="size"
         src="/polaroid-tl.png"
-        className="absolute hidden md:block"
+        className="absolute hidden cursor-grab md:block"
         style={{
           top: "calc(50% - 350px)",
           left: "calc(50% - 600px)",
@@ -114,7 +116,7 @@ const ImageSection = () => {
         }}
         layout="size"
         src="/polaroid-tr.png"
-        className="absolute hidden md:block"
+        className="absolute hidden cursor-grab md:block"
         height={480}
         width={300}
         animate={{
@@ -127,7 +129,7 @@ const ImageSection = () => {
         {...polaroidImageProps}
         layout="size"
         src="/polaroid-c.png"
-        className="block h-full w-full md:absolute md:h-[600px] md:w-[600px]"
+        className="block h-full w-full cursor-grab md:absolute md:h-[600px] md:w-[600px]"
         alt="Image Polaroid"
         style={{
           top: "calc(50% - 300px)",
@@ -138,7 +140,7 @@ const ImageSection = () => {
       />
       <AnimatedImage
         {...polaroidImageProps}
-        className="absolute hidden md:block"
+        className="absolute hidden cursor-grab md:block"
         style={{
           top: "calc(50%)",
           left: "calc(50% - 550px)",
@@ -155,7 +157,7 @@ const ImageSection = () => {
       />
       <AnimatedImage
         {...polaroidImageProps}
-        className="absolute hidden md:block"
+        className="absolute hidden cursor-grab md:block"
         style={{
           top: "calc(50%)",
           left: "calc(50% + 250px)",
