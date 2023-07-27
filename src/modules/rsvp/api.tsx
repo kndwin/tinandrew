@@ -19,31 +19,28 @@ export const rsvpRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const res = await client.databases.query({
         database_id: ID.ResponseDatabase,
-        filter: {
-          property: "Person",
-          title: {
-            contains: input.person,
-          },
-        },
+        filter: { property: "Person", title: { contains: input.person } },
       });
 
       const user = res?.results?.[0] as any;
       const pageId = user?.id as string;
       const updatedRow = await updateRow(pageId, input);
 
-      /*
+      const type =
+        input.attending === "Yes"
+          ? user.properties["Access"].select.name === "Reception"
+            ? "reception"
+            : "ceremony"
+          : "not-attending";
+
       const data = await resend.sendEmail({
-        // gmail doesn't allow this
-        // from: "Tina and Andrew<andrewtinaxing@gmail.com>",
-        from: "Tina and Andrew<onboarding@resend.dev>",
+        from: "Tina and Andrew<prewview@react.email>",
         to: user.properties.Email.email,
         subject: "Tina and Andrew's Wedding RSVP",
-        react: ConfirmRSVP({ name: input.person }),
-
+        react: ConfirmRSVP({ name: input.person, type }),
       });
 
-      console.log({ data });
-			 */
+      console.log(JSON.stringify(data, null, 2));
 
       return {
         updatedRow,

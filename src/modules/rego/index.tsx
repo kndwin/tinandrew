@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { match } from "ts-pattern";
 import Image from "next/image";
-import { AlertCircleIcon } from "lucide-react";
+import { AlertCircleIcon, Loader } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { FormTextField, FormPasswordField, Text } from "~/ui";
@@ -91,7 +91,7 @@ export const RegoForm = () => {
         />
         <div className="mt-8 mb-4 flex flex-col items-center text-center">
           <Text size="display" className="text-[60px] sm:text-[96px]">
-            Andrew + Tina
+            Andrew + tina
           </Text>
         </div>
 
@@ -128,7 +128,7 @@ export const RegoForm = () => {
           className="mx-auto w-full rounded bg-brown px-4 py-2 font-karla text-white"
         >
           {match(validateRegoMutation.status)
-            .with("loading", () => "Submitting")
+            .with("loading", () => <Loader className="animate-spin" />)
             .with("success", () => "Done! Hang tight while we redirect you")
             .otherwise(() => "Log in")}
         </button>

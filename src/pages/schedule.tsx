@@ -1,3 +1,4 @@
+import Head from "next/head";
 import superjson from "superjson";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
@@ -44,23 +45,41 @@ const Schedule: NextPage = (
   const access =
     personDetails?.data?.access === "Reception" ? "reception" : "ceremony";
 
-  return (
-    <div className="max-w-screen flex h-full flex-col overflow-x-hidden">
-      <NavBar />
-      <div className="z-0 flex h-full flex-col">
-        <Hero
-          person={{
-            attending: personDetails.data?.attending,
-            name: personDetails.data?.person.split(" ")[0],
-            rsvped: personDetails.data?.rsvped,
-          }}
-        />
-        <Timeline access={access} />
-        <QuestionsAndAnswers />
-        <BridalParty />
-        <Footer />
+  if (personDetails.status === "loading" || personDetails.data?.person === "") {
+    return (
+      <div className="max-w-screen flex min-h-screen items-center justify-center">
+        <p className="m-auto font-karla text-4xl text-brown">
+          {`Loading`}
+          <span className="animate-pulse">{`⋅⋅⋅`}</span>
+        </p>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <Head>
+        <title>{`Andrew + Tina's wedding`}</title>
+        <meta name="description" content="Andrew and Tina's wedding" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="max-w-screen flex h-full flex-col overflow-x-hidden">
+        <NavBar />
+        <div className="z-0 flex h-full flex-col">
+          <Hero
+            person={{
+              attending: personDetails.data?.attending,
+              name: personDetails.data?.person.split(" ")[0],
+              rsvped: personDetails.data?.rsvped,
+            }}
+          />
+          <Timeline access={access} />
+          <QuestionsAndAnswers />
+          <BridalParty />
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 };
 

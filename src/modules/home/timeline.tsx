@@ -38,7 +38,7 @@ export const Timeline = ({ access }: { access: "reception" | "ceremony" }) => {
   return (
     <section id="schedule" className="px-4 pt-[32px] sm:px-16">
       <SectionTitle title="Schedule" />
-      <p className="mx-auto w-fit border-b border-cream pb-4 font-karla text-[24px] font-medium capitalize text-brown">
+      <p className="mx-auto w-fit border-b border-cream pb-4 text-center font-karla text-[24px] font-medium capitalize text-brown">
         SATURDAY NOVEMBER 4TH, 2023
       </p>
       <div className="mx-auto mt-16 flex w-full max-w-4xl flex-col gap-16">

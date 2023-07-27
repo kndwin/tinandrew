@@ -70,31 +70,90 @@ export const NavBar = () => {
       <div>
         <p className="hidden font-cardo text-[32px] font-medium text-lightbrown lg:block">{`4 . 11 . 23`}</p>
       </div>
+
       <div className="block lg:hidden">
-        <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-          <path
-            d="M1 1H33"
-            stroke="#594B44"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <path
-            d="M1 14H33"
-            stroke="#594B44"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <path
-            d="M1 27H33"
-            stroke="#594B44"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
+        <MobileNav />
       </div>
     </div>
   );
 };
+
+const MobileNav = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setOpen(!open)}>
+        {open && <CloseIcon />}
+        {!open && <HamburgerIcon />}
+      </button>
+      <div
+        style={{ left: open ? "0" : "100%" }}
+        className={cx(
+          "fle fixed top-[80px] left-0 flex h-[calc(100vh_-_80px)] w-screen flex-col gap-10 overflow-x-hidden bg-white p-10 transition-all duration-700"
+        )}
+      >
+        <p className="font-cardo text-[32px] font-medium text-lightbrown lg:block">{`4 . 11 . 23`}</p>
+
+        {navOptions.map(({ name, id }) => (
+          <a
+            key={id}
+            onClick={(e) => {
+              // scroll to section with 10px offset
+              e.preventDefault();
+              const element = document.getElementById(id);
+              if (element) {
+                const rect = element.getBoundingClientRect();
+                window.scrollTo({
+                  top: rect.top + window.scrollY + (id == "rsvp" ? 0 : 1),
+                  behavior: "smooth",
+                });
+              }
+              setOpen(false);
+            }}
+            className={cx("font-cardo text-[20px] text-brown")}
+            href={`#${id}`}
+          >
+            {name}
+          </a>
+        ))}
+      </div>
+    </>
+  );
+};
+
+const CloseIcon = () => (
+  <svg width={34} height={35} viewBox="0 0 34 35" fill="none">
+    <path
+      stroke="#594B44"
+      strokeLinecap="round"
+      strokeWidth={2}
+      d="m1 1.5 32 32M33 1.5l-32 32"
+    />
+  </svg>
+);
+
+const HamburgerIcon = () => (
+  <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
+    <path
+      d="M1 1H33"
+      stroke="#594B44"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1 14H33"
+      stroke="#594B44"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1 27H33"
+      stroke="#594B44"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+);
 
 const navOptions = [
   {

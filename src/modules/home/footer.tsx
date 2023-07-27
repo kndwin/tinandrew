@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { useInterval } from "~/hooks";
-import { format, subSeconds } from "date-fns";
 
 export const Footer = () => {
   return (
@@ -31,8 +30,8 @@ export const Footer = () => {
           Kevin Nguyen
         </p>
       </div>
-      <div className="text-center">
-        <p className="mt-40 font-gistesy text-[96px] text-brown">
+      <div className="px-8 text-center">
+        <p className="mt-40 mb-4 font-gistesy text-[96px] leading-none text-brown">
           See you guys in
         </p>
         <Countdown />
