@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { match } from "ts-pattern";
 import Image from "next/image";
-import { AlertCircleIcon, Loader } from "lucide-react";
+import { AlertCircleIcon, Loader2 } from "lucide-react";
 
 import { api } from "~/utils/api";
 import { FormTextField, FormPasswordField, Text } from "~/ui";
@@ -125,10 +125,10 @@ export const RegoForm = () => {
           disabled={
             validateRegoMutation.isLoading || validateRegoMutation.isSuccess
           }
-          className="mx-auto w-full rounded bg-brown px-4 py-2 font-karla text-white"
+          className="mx-auto flex w-full items-center rounded bg-brown px-4 py-2 font-karla text-white"
         >
           {match(validateRegoMutation.status)
-            .with("loading", () => <Loader className="animate-spin" />)
+            .with("loading", () => <Loader2 className="animate-spin" />)
             .with("success", () => "Done! Hang tight while we redirect you")
             .otherwise(() => "Log in")}
         </button>

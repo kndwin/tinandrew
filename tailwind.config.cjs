@@ -11,6 +11,10 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        smm: { max: "639px" },
+        // => @media (max-width: 639px) { ... }
+      },
       colors: {
         brown: "#594B44",
         lightbrown: "#766156",

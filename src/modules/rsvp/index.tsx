@@ -91,7 +91,7 @@ export const FormRSVP = ({
                 <p className="font-karla text-brown">
                   {"Will you be attending the ceremony?"}
                 </p>
-                <div className="flex h-8 gap-2">
+                <div className="flex h-8 flex-wrap gap-2">
                   <button
                     type="button"
                     onClick={() => methods.setValue("attending", "Yes")}
@@ -119,7 +119,7 @@ export const FormRSVP = ({
                 <p className="font-karla text-brown">
                   {`Will you be bringing a +1 to the ceremony?`}
                 </p>
-                <div className="flex h-8 gap-2">
+                <div className="flex h-8 h-full flex-wrap gap-2">
                   <button
                     type="button"
                     onClick={() => methods.setValue("plusOne", "Yes")}
@@ -193,7 +193,7 @@ export const FormRSVP = ({
             )}
           </form>
           <ReactConfetti
-            className="absolute top-0 left-0"
+            className="fixed top-0 left-0"
             recycle={false}
             run={confetti}
             width={width}
