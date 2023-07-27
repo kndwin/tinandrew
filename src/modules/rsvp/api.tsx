@@ -33,6 +33,7 @@ export const rsvpRouter = createTRPCRouter({
             : "ceremony"
           : "not-attending";
 
+      /*
       const data = await resend.sendEmail({
         from: "Tina and Andrew<prewview@react.email>",
         to: user.properties.Email.email,
@@ -41,6 +42,7 @@ export const rsvpRouter = createTRPCRouter({
       });
 
       console.log(JSON.stringify(data, null, 2));
+					 */
 
       return {
         updatedRow,
