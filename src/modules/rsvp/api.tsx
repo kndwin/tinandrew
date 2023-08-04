@@ -33,16 +33,14 @@ export const rsvpRouter = createTRPCRouter({
             : "ceremony"
           : "not-attending";
 
-      /*
       const data = await resend.sendEmail({
-        from: "Tina and Andrew<prewview@react.email>",
+        from: "Tina and Andrew<rsvp@andrewtina.com>",
         to: user.properties.Email.email,
         subject: "Tina and Andrew's Wedding RSVP",
         react: ConfirmRSVP({ name: input.person, type }),
       });
 
       console.log(JSON.stringify(data, null, 2));
-					 */
 
       return {
         updatedRow,

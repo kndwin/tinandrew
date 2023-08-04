@@ -35,7 +35,7 @@ const Reception = ({ name }: Omit<ConfirmRSVP, "type">) => (
     <Head />
     <Preview>Welcome to our wedding! (Reception)</Preview>
     <Tailwind>
-      <Body className="my-auto mx-auto bg-white font-sans">
+      <Body className="my-auto mx-auto bg-white font-sans text-black">
         <Container className="my-[40px] mx-auto w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
           <Img
             className="mx-auto"
@@ -93,7 +93,7 @@ const Ceremony = ({ name }: Omit<ConfirmRSVP, "type">) => (
     <Head />
     <Preview>Welcome to our wedding!</Preview>
     <Tailwind>
-      <Body className="my-auto mx-auto bg-white font-sans">
+      <Body className="my-auto mx-auto bg-white font-sans text-black">
         <Container className="my-[40px] mx-auto w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
           <Img
             className="mx-auto"
@@ -113,16 +113,16 @@ const Ceremony = ({ name }: Omit<ConfirmRSVP, "type">) => (
 
           <Container>
             <Text className="text-xl font-bold">{`Ceremony`}</Text>
-            <Text className="leading-none">{`Date: 4th November, 2023`}</Text>
-            <Text className="leading-none">{`Time: 12:45pm - 2:30pm.`}</Text>
+            <Text className="leading-none text-black">{`Date: 4th November, 2023`}</Text>
+            <Text className="leading-none text-black">{`Time: 12:45pm - 2:30pm.`}</Text>
             <Text className="leading-none">
               {`Location: `}
               <Link href="https://goo.gl/maps/uLHcivFBcfzuVr8f7">
                 {`St John’s Anglican Cathedral, 195 Church St, Parramatta NSW 2150`}
               </Link>
             </Text>
-            <Text className="text-sm">{`Dress Code: Formal`}</Text>
-            <Text>
+            <Text className="text-sm text-black">{`Dress Code: Formal`}</Text>
+            <Text className="text-black">
               {`Instructions: Please be seated by 12:45 for a 1pm start.`}
             </Text>
           </Container>

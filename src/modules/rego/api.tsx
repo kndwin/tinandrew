@@ -15,15 +15,47 @@ export const regoRouter = createTRPCRouter({
           message: "Invalid password",
         });
       }
-      const isPersonValid = await validatePerson(input);
+      let isPersonValid = await validatePerson(input);
+
       if (isPersonValid.valid === "invalid") {
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: "Invalid person",
+        // add person to database
+        await client.pages.create({
+          parent: {
+            database_id: ID.ResponseDatabase,
+          },
+          properties: {
+            Person: {
+              type: "title",
+              title: [
+                {
+                  type: "text",
+                  text: { content: `${input.firstName} ${input.lastName}` },
+                },
+              ],
+            },
+            Email: {
+              type: "email",
+              email: input.email,
+            },
+            Access: {
+              type: "select",
+              select: {
+                name: "Ceremony",
+              },
+            },
+            "Not registered?": {
+              type: "checkbox",
+              checkbox: true,
+            },
+          },
         });
+        isPersonValid = {
+          person: `${input.firstName} ${input.lastName}`,
+          valid: "ceremony",
+        };
       }
 
-      return { ...isPersonValid };
+      return { person: isPersonValid.person, valid: isPersonValid.valid };
     }),
   getPerson: publicProcedure
     .input(

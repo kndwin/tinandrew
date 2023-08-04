@@ -125,7 +125,7 @@ export const RegoForm = () => {
           disabled={
             validateRegoMutation.isLoading || validateRegoMutation.isSuccess
           }
-          className="mx-auto flex w-full items-center rounded bg-brown px-4 py-2 font-karla text-white"
+          className="mx-auto flex w-full items-center justify-center rounded bg-brown px-4 py-2 font-karla text-white"
         >
           {match(validateRegoMutation.status)
             .with("loading", () => <Loader2 className="animate-spin" />)
