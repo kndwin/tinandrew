@@ -14,7 +14,7 @@ import {
 
 type ConfirmRSVP = {
   name?: string;
-  type: "reception" | "ceremony" | "not-attending";
+  type: "reception" | "ceremony-reception" | "ceremony" | "not-attending";
 };
 
 export const ConfirmRSVP = ({
@@ -24,6 +24,7 @@ export const ConfirmRSVP = ({
   return (
     <Html>
       {type === "reception" && <Reception name={name} />}
+      {type === "ceremony-reception" && <CeremonyReception name={name} />}
       {type === "ceremony" && <Ceremony name={name} />}
       {type === "not-attending" && <NotAttending name={name} />}
     </Html>
@@ -31,6 +32,49 @@ export const ConfirmRSVP = ({
 };
 
 const Reception = ({ name }: Omit<ConfirmRSVP, "type">) => (
+  <>
+    <Head />
+    <Preview>Welcome to our wedding! (Reception)</Preview>
+    <Tailwind>
+      <Body className="my-auto mx-auto bg-white font-sans text-black">
+        <Container className="my-[40px] mx-auto w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
+          <Img
+            className="mx-auto"
+            src="https://tinandrew.vercel.app/_next/image?url=%2Fhero-kittens.png&w=384&q=75"
+          />
+          <Heading className="my-[30px] mx-0 p-0 text-center text-[24px] font-normal text-black">
+            {`Thanks for the response, ${name?.split(" ")[0]}! `}
+          </Heading>
+          <Text className="text-[14px] leading-[24px] text-black">
+            {`Keep this email for reference. It will let you update your response on Andrew & Tina's `}
+            <Link href={`https://andrewtina.com/schedule?person=${name}`}>
+              {` website`}
+            </Link>
+          </Text>
+          <Container>
+            <Text className="text-xl font-bold leading-none">{`Reception`}</Text>
+            <Text className="leading-none">{`Date: 4th November, 2023`}</Text>
+            <Text className="leading-none">{`Time: 6:30pm - 12am `}</Text>
+            <Text className="leading-none">
+              {`Location: `}
+              <Link href="https://goo.gl/maps/gpmucNuKX7BZ8d9Y6">
+                {`45-47 Rawson St, Epping NSW 2121`}
+              </Link>
+            </Text>
+            <Text>{`Dress Code: Formal`}</Text>
+          </Container>
+          <Container>
+            <Text className="mb-0 whitespace-pre-line text-center leading-snug">
+              {`We're excited to see you for our special day! \nSincerely, Andrew and Tina`}
+            </Text>
+          </Container>
+        </Container>
+      </Body>
+    </Tailwind>
+  </>
+);
+
+const CeremonyReception = ({ name }: Omit<ConfirmRSVP, "type">) => (
   <>
     <Head />
     <Preview>Welcome to our wedding! (Reception)</Preview>

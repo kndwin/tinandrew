@@ -26,12 +26,21 @@ export const rsvpRouter = createTRPCRouter({
       const pageId = user?.id as string;
       const updatedRow = await updateRow(pageId, input);
 
-      const type =
-        input.attending === "Yes"
-          ? user.properties["Access"].select.name === "Reception"
-            ? "reception"
-            : "ceremony"
-          : "not-attending";
+      const isAtteningBoth =
+        input.attending === "Yes" && input.attendingReception === "Yes";
+      const isAttendingCeremony =
+        input.attending === "Yes" && input.attendingReception === "No";
+      const isAttendingReception =
+        input.attending === "No" && input.attendingReception === "Yes";
+
+      let type = "not-attending";
+      if (isAtteningBoth) {
+        type = "ceremony-reception";
+      } else if (isAttendingCeremony) {
+        type = "ceremony";
+      } else if (isAttendingReception) {
+        type = "reception";
+      }
 
       const data = await resend.sendEmail({
         from: "Tina and Andrew<rsvp@andrewtina.com>",
@@ -54,6 +63,9 @@ const updateRow = async (id: string, input: CreateRVSPProps) => {
   const updatedRow = await client.pages.update({
     page_id: id,
     properties: {
+      "Not attending ceremony": {
+        checkbox: input.attendingReception === "Yes",
+      },
       "Plus One": {
         checkbox: input.plusOne === "Yes",
       },

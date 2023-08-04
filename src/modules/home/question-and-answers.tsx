@@ -26,7 +26,11 @@ const questionsAndAnswers = {
   },
 };
 
-export const QuestionsAndAnswers = () => {
+export const QuestionsAndAnswers = ({
+  access,
+}: {
+  access: "ceremony" | "reception";
+}) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   return (
     <section
@@ -43,6 +47,7 @@ export const QuestionsAndAnswers = () => {
           <p className="font-karla text-[20x]">
             {questionsAndAnswers.rsvp.description}
             <FormRSVP
+              access={access}
               trigger={
                 <a className="cursor-pointer font-bold text-brown">
                   Change Details

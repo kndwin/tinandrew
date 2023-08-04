@@ -19,6 +19,7 @@ const rsvpFormSchema = z.object({
   plusOne: z.enum(["No", "Yes"]),
   allergies: z.string(),
   qna: z.string(),
+  attendingReception: z.enum(["No", "Yes"]),
 });
 
 export const createRSVPSchema = rsvpFormSchema.extend({
@@ -39,9 +40,11 @@ const formButton = tv({
 
 type FormRSVPProps = {
   trigger?: React.ReactNode;
+  access: "ceremony" | "reception";
 };
 export const FormRSVP = ({
   trigger = <button className={button()}>RSVP Here</button>,
+  access = "ceremony",
 }: FormRSVPProps) => {
   const client = useQueryClient();
   const router = useRouter();
@@ -51,6 +54,7 @@ export const FormRSVP = ({
     resolver: zodResolver(rsvpFormSchema),
     defaultValues: {
       attending: "Yes",
+      attendingReception: "Yes",
       plusOne: "No",
     },
   });
@@ -119,7 +123,7 @@ export const FormRSVP = ({
                 <p className="font-karla text-brown">
                   {`Will you be bringing a +1 to the ceremony?`}
                 </p>
-                <div className="flex h-8 h-full flex-wrap gap-2">
+                <div className="flex h-full flex-wrap gap-2">
                   <button
                     type="button"
                     onClick={() => methods.setValue("plusOne", "Yes")}
@@ -143,6 +147,40 @@ export const FormRSVP = ({
                   <Card type="error" message={errors?.plusOne?.message} />
                 )}
               </div>
+              {access === "reception" && (
+                <div className="flex flex-col gap-2">
+                  <p className="font-karla text-brown">
+                    {"Will you be attending the reception?"}
+                  </p>
+                  <div className="flex h-8 flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        methods.setValue("attendingReception", "Yes")
+                      }
+                      className={formButton({
+                        selected: methods.watch("attendingReception") === "Yes",
+                      })}
+                    >
+                      {`Yes, I'll be there`}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        methods.setValue("attendingReception", "No")
+                      }
+                      className={formButton({
+                        selected: methods.watch("attendingReception") === "No",
+                      })}
+                    >
+                      {`No, I won't be there`}
+                    </button>
+                  </div>
+                  {errors.attending && (
+                    <Card type="error" message={errors.attending.message} />
+                  )}
+                </div>
+              )}
               <div className="flex flex-col gap-2">
                 <p className="font-karla text-brown">
                   {"Allergies/Dietary Requirements"}

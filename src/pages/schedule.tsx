@@ -71,10 +71,11 @@ const Schedule: NextPage = (
               attending: personDetails.data?.attending,
               name: personDetails.data?.person.split(" ")[0],
               rsvped: personDetails.data?.rsvped,
+              access,
             }}
           />
           <Timeline access={access} />
-          <QuestionsAndAnswers />
+          <QuestionsAndAnswers access={access} />
           <BridalParty />
           <Footer />
         </div>

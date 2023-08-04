@@ -10,6 +10,7 @@ export const Hero = ({
     rsvped: boolean;
     attending: "Yes" | "No";
     name: string;
+    access: "ceremony" | "reception";
   };
 }) => {
   return (
@@ -25,7 +26,7 @@ export const Hero = ({
 
         {!person.rsvped && (
           <div className="mt-16 text-center">
-            <FormRSVP />
+            <FormRSVP access={person.access} />
             <p className="mt-3 text-sm text-lightbrown">
               Please RSVP by August 4th
             </p>
@@ -37,6 +38,7 @@ export const Hero = ({
               {`Hi ${person.name}, you’ve RSVPed!\nLooking forward to seeing you there!`}
             </div>
             <FormRSVP
+              access={person.access}
               trigger={
                 <a className="mt-4 cursor-pointer font-karla text-[20px] text-brown">
                   Change Details
@@ -51,6 +53,7 @@ export const Hero = ({
               {`Sad to hear you can’t make it, but we’d still love to catch up!\nReach out to us and we’ll get back to you.`}
             </div>
             <FormRSVP
+              access={person.access}
               trigger={
                 <a className="mt-4 cursor-pointer font-karla text-[20px] text-brown">
                   Change Details
