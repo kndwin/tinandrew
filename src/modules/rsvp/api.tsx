@@ -64,7 +64,7 @@ const updateRow = async (id: string, input: CreateRVSPProps) => {
     page_id: id,
     properties: {
       "Not attending ceremony": {
-        checkbox: input.attendingReception === "Yes",
+        checkbox: input.attendingReception === "No",
       },
       "Plus One": {
         checkbox: input.plusOne === "Yes",
