@@ -28,7 +28,7 @@ export const Hero = ({
           <div className="mt-16 text-center">
             <FormRSVP access={person.access} />
             <p className="mt-3 text-sm text-lightbrown">
-              Please RSVP by August 4th
+              Please RSVP by September 16th
             </p>
           </div>
         )}
