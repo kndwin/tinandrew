@@ -54,7 +54,7 @@ export const FormRSVP = ({
     resolver: zodResolver(rsvpFormSchema),
     defaultValues: {
       attending: "Yes",
-      attendingReception: "Yes",
+      attendingReception: access === "reception" ? "Yes" : "No",
       plusOne: "No",
     },
   });
