@@ -27,11 +27,15 @@ export const rsvpRouter = createTRPCRouter({
       const updatedRow = await updateRow(pageId, input);
 
       const isAtteningBoth =
-        input.attending === "Yes" && input.attendingReception === "Yes";
+        input.attending === "Yes" &&
+        input.attendingReception === "Yes" &&
+        user.properties["Access"].select.name === "Reception";
       const isAttendingCeremony =
         input.attending === "Yes" && input.attendingReception === "No";
       const isAttendingReception =
-        input.attending === "No" && input.attendingReception === "Yes";
+        input.attending === "No" &&
+        input.attendingReception === "Yes" &&
+        user.properties["Access"].select.name === "Reception";
 
       let type = "not-attending";
       if (isAtteningBoth) {
