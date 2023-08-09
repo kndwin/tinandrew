@@ -11,8 +11,20 @@ import { FormTextField, FormPasswordField, Text } from "~/ui";
 import { useRouter } from "next/router";
 
 export const validateRegoSchema = z.object({
-  firstName: z.string().trim().min(1),
-  lastName: z.string().trim().min(1),
+  firstName: z
+    .string()
+    .min(1)
+    .refine((val) => val.indexOf(" ") !== 1, {
+      message:
+        "First name must not contain a space, Make sure you didn't accidentally add a space at the end of your first name",
+    }),
+  lastName: z
+    .string()
+    .min(1)
+    .refine((val) => val.indexOf(" ") !== 1, {
+      message:
+        "Last name must not contain a space, Make sure you didn't accidentally add a space at the end of your last name",
+    }),
   email: z.string().email(),
   password: z.string().min(8),
 });

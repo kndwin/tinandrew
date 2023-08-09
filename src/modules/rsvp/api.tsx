@@ -24,12 +24,15 @@ export const rsvpRouter = createTRPCRouter({
 
       const user = res?.results?.[0] as any;
       const pageId = user?.id as string;
-      const updatedRow = await updateRow(pageId, input);
+      const access = user.properties["Access"].select.name as
+        | "Ceremony"
+        | "Reception";
+      const updatedRow = await updateRow(pageId, input, access);
 
       const isAtteningBoth =
         input.attending === "Yes" &&
         input.attendingReception === "Yes" &&
-        user.properties["Access"].select.name === "Reception";
+        access === "Reception";
       const isAttendingCeremony =
         input.attending === "Yes" && input.attendingReception === "No";
       const isAttendingReception =
@@ -63,12 +66,16 @@ export const rsvpRouter = createTRPCRouter({
 
 type CreateRVSPProps = z.infer<typeof createRSVPSchema>;
 
-const updateRow = async (id: string, input: CreateRVSPProps) => {
+const updateRow = async (
+  id: string,
+  input: CreateRVSPProps,
+  access: "Ceremony" | "Reception"
+) => {
   const updatedRow = await client.pages.update({
     page_id: id,
     properties: {
       "Not attending ceremony": {
-        checkbox: input.attendingReception === "No",
+        checkbox: input.attendingReception === "No" && access === "Reception",
       },
       "Plus One": {
         checkbox: input.plusOne === "Yes",

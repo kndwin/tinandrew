@@ -1,4 +1,4 @@
-import { useState, type SVGProps } from "react";
+import { useEffect, useState, type SVGProps } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -29,7 +29,7 @@ export const createRSVPSchema = rsvpFormSchema.extend({
 type FormSchema = z.infer<typeof createRSVPSchema>;
 
 const formButton = tv({
-  base: ["px-2 py-1 text-xs rounded-sm border"],
+  base: ["px-2 py-1 text-xs rounded-sm border", "disabled:bg-white/50"],
   variants: {
     selected: {
       true: "border-dark text-dark",
@@ -79,7 +79,19 @@ export const FormRSVP = ({
     );
   });
 
-  const { width, height } = useViewportSize();
+  useEffect(() => {
+    if (methods.watch("attending") === "No") {
+      methods.setValue("plusOne", "No");
+    }
+  }, [methods.watch("attending")]);
+
+  useEffect(() => {
+    if (open === false) {
+      methods.reset();
+      createRSVPMutation.reset();
+      setConfetti(false);
+    }
+  }, [open]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -126,6 +138,7 @@ export const FormRSVP = ({
                 <div className="flex h-full flex-wrap gap-2">
                   <button
                     type="button"
+                    disabled={methods.watch("attending") === "No"}
                     onClick={() => methods.setValue("plusOne", "Yes")}
                     className={formButton({
                       selected: methods.watch("plusOne") === "Yes",
@@ -136,6 +149,7 @@ export const FormRSVP = ({
                   <button
                     type="button"
                     onClick={() => methods.setValue("plusOne", "No")}
+                    disabled={methods.watch("attending") === "No"}
                     className={formButton({
                       selected: methods.watch("plusOne") === "No",
                     })}
@@ -230,13 +244,6 @@ export const FormRSVP = ({
               <Card type="error" message={"😭 something went wrong!"} />
             )}
           </form>
-          <ReactConfetti
-            className="fixed top-0 left-0"
-            recycle={false}
-            run={confetti}
-            width={width}
-            height={height}
-          />
         </FormProvider>
       </DialogContent>
     </Dialog>
